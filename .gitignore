@@ -19,3 +19,4 @@ out/
 *.ipr
 *.iws
 
+dist/

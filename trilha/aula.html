@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
+  <meta name="theme-color" content="#0f1117">
+  <title>Aula guiada — Trilha Java</title>
+  <link rel="stylesheet" href="styles/app.css">
+  <link rel="stylesheet" href="styles/aula.css">
+</head>
+<body>
+
+<div id="aula" class="aula-shell">
+
+  <header class="aula-topo">
+    <div class="aula-head">
+      <button class="close-x" id="btnSair" title="Sair da aula" aria-label="Sair">×</button>
+      <h1 id="tituloAula">Aula guiada</h1>
+      <button class="icon-btn" id="btnSom" title="Som" aria-label="Ligar ou desligar o som">🔊</button>
+    </div>
+    <div class="passos" id="passos"></div>
+  </header>
+
+  <main class="palco-scroll">
+    <section class="palco" id="palco"></section>
+  </main>
+
+  <footer class="barra-narrador">
+    <div class="narrador-inner">
+
+      <div class="personagem" id="personagem" data-emocao="normal">
+        <!-- Bean, o grão de café narrador -->
+        <svg viewBox="0 0 140 150" aria-label="Bean, o narrador">
+          <defs>
+            <linearGradient id="corpoGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"  stop-color="#a8703a"/>
+              <stop offset="55%" stop-color="#8b5a2b"/>
+              <stop offset="100%" stop-color="#6b4220"/>
+            </linearGradient>
+            <radialGradient id="luz" cx="34%" cy="26%" r="62%">
+              <stop offset="0%"  stop-color="#fff" stop-opacity=".32"/>
+              <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <ellipse class="sombra" cx="70" cy="140" rx="34" ry="6" fill="#000" opacity=".3"/>
+
+          <g class="vapor" opacity=".5">
+            <path d="M58 14 q7 -9 0 -17" stroke="#cbd5e1" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <path d="M82 14 q7 -9 0 -17" stroke="#cbd5e1" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+          </g>
+
+          <g class="braco-esq"><path d="M26 82 q-14 8 -12 22" stroke="#6b4220" stroke-width="8" fill="none" stroke-linecap="round"/></g>
+          <g class="braco-dir"><path d="M114 82 q14 8 12 22" stroke="#6b4220" stroke-width="8" fill="none" stroke-linecap="round"/></g>
+
+          <g class="corpo">
+            <ellipse cx="70" cy="74" rx="48" ry="56" fill="url(#corpoGrad)"/>
+            <ellipse cx="70" cy="74" rx="48" ry="56" fill="url(#luz)"/>
+            <ellipse cx="70" cy="74" rx="48" ry="56" fill="none" stroke="#5c3a1a" stroke-width="2.5"/>
+            <path d="M70 22 C52 50, 88 98, 70 126" stroke="#5c3a1a" stroke-width="7" fill="none" stroke-linecap="round"/>
+
+            <g class="sobrancelhas">
+              <path class="sob-esq" d="M36 42 q10 -6 20 -1" stroke="#4a2d12" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+              <path class="sob-dir" d="M84 41 q10 -5 20 1"  stroke="#4a2d12" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+            </g>
+
+            <ellipse class="olho" cx="49" cy="62" rx="12.5" ry="13.5" fill="#fff"/>
+            <ellipse class="olho" cx="91" cy="62" rx="12.5" ry="13.5" fill="#fff"/>
+            <circle class="pupila" cx="51" cy="64" r="6" fill="#1a1a1a"/>
+            <circle class="pupila" cx="93" cy="64" r="6" fill="#1a1a1a"/>
+            <circle cx="53.5" cy="61" r="2.1" fill="#fff"/>
+            <circle cx="95.5" cy="61" r="2.1" fill="#fff"/>
+
+            <path class="boca" d="M56 92 Q70 105 84 92" stroke="#3b2410" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+
+            <ellipse class="blush" cx="32" cy="84" rx="8" ry="5.5" fill="#c0392b" opacity=".32"/>
+            <ellipse class="blush" cx="108" cy="84" rx="8" ry="5.5" fill="#c0392b" opacity=".32"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="balao">
+        <div class="balao-nome" id="nomePersonagem">Bean</div>
+        <div class="balao-corpo" id="fala" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="narrador-acoes">
+        <div class="dica" id="dica"></div>
+        <button class="btn btn-primary" id="btnContinuar" disabled>Continuar</button>
+      </div>
+
+    </div>
+  </footer>
+</div>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="js/som.js"></script>
+<script src="js/progress.js"></script>
+<script src="content/curso.js"></script>
+<script src="js/render.js"></script>
+<!-- ordem dos scripts = ordem da trilha -->
+<script src="content/page06-fundamentos.js"></script>
+<script src="content/page01-oop.js"></script>
+<script src="content/page02-collections.js"></script>
+<script src="content/page03-excecoes-generics.js"></script>
+<script src="content/page04-funcional.js"></script>
+<script src="content/page07-datetime.js"></script>
+<script src="content/page08-io-nio2.js"></script>
+<script src="content/page05-jdbc-repository.js"></script>
+<script src="content/page09-reflection.js"></script>
+<script src="content/page10-boas-praticas.js"></script>
+<script src="js/aula.js"></script>
+<!-- roteiros das aulas guiadas -->
+<script src="content/aula-primitivos.js"></script>
+<script src="content/aula-generics.js"></script>
+<script>
+  (() => {
+    const id = new URLSearchParams(location.search).get('id') || 'primitivos';
+    const roteiro = Aula.obter(id);
+    document.getElementById('btnSair').onclick = () => { location.href = 'index.html'; };
+
+    const btnSom = document.getElementById('btnSom');
+    const pintarSom = () => {
+      btnSom.textContent = Som.ativo() ? '🔊' : '🔇';
+      btnSom.classList.toggle('off', !Som.ativo());
+    };
+    btnSom.onclick = () => { Som.alternar(); pintarSom(); };
+    pintarSom();
+
+    if (!roteiro) {
+      document.getElementById('palco').innerHTML =
+        '<h2 class="palco-titulo">Aula não encontrada</h2>';
+      return;
+    }
+    Aula.iniciar(roteiro);
+  })();
+</script>
+</body>
+</html>

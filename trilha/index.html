@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f1117">
+  <title>Trilha Java — Revisão Especialista</title>
+  <link rel="stylesheet" href="styles/app.css">
+</head>
+<body>
+
+  <header class="hud">
+    <div class="hud-inner">
+      <a class="hud-brand" href="index.html">☕ Trilha Java</a>
+      <div class="hud-spacer"></div>
+      <div class="stat stat-xp">⚡ <span id="hudXp">0</span></div>
+      <div class="stat stat-streak">🔥 <span id="hudStreak">0</span></div>
+      <div class="stat stat-done">✅ <span id="hudDone">0/0</span></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="intro">
+      <h1>Revisão do Especialista Java</h1>
+      <p>
+        35 módulos do curso, condensados em uma trilha de lições curtas.
+        Cada lição tem a teoria do tema, o módulo do curso para você reassistir o vídeo
+        e exercícios — flashcard, quiz, completar código, pergunta de entrevista e desafio no editor.
+      </p>
+      <div class="xp-bar"><div class="xp-bar-fill" id="xpFill"></div></div>
+      <div class="xp-label" id="xpLabel"></div>
+      <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+        <button class="btn btn-ghost btn-sm" id="btnLivre">🔒 Modo livre</button>
+        <button class="btn btn-ghost btn-sm" id="btnZerar">↺ Zerar progresso</button>
+        <a class="btn btn-ghost btn-sm" id="linkHub" target="_blank">📚 Hub de estudos</a>
+      </div>
+      <div id="revisao"></div>
+    </div>
+
+    <div id="unidades"></div>
+  </main>
+
+  <script src="js/som.js"></script>
+  <script src="js/progress.js"></script>
+  <script src="content/curso.js"></script>
+  <!-- ordem dos scripts = ordem da trilha -->
+  <script src="content/page06-fundamentos.js"></script>
+  <script src="content/page01-oop.js"></script>
+  <script src="content/page02-collections.js"></script>
+  <script src="content/page03-excecoes-generics.js"></script>
+  <script src="content/page04-funcional.js"></script>
+  <script src="content/page07-datetime.js"></script>
+  <script src="content/page08-io-nio2.js"></script>
+  <script src="content/page05-jdbc-repository.js"></script>
+  <script src="content/page09-reflection.js"></script>
+  <script src="content/page10-boas-praticas.js"></script>
+  <script src="js/trilha.js"></script>
+</body>
+</html>
