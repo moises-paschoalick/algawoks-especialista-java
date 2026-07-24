@@ -16,9 +16,10 @@ SAIDA="${1:-$AQUI/../dist/java-game}"
 # repositório onde vivem os markdowns do curso, para onde os links vão apontar
 DOCS_URL="https://github.com/moises-paschoalick/algawoks-especialista-java/blob/java-game/"
 
-echo "→ limpando $SAIDA"
-rm -rf "$SAIDA"
+echo "→ limpando $SAIDA (preservando .git e README.md)"
 mkdir -p "$SAIDA"
+find "$SAIDA" -mindepth 1 -maxdepth 1 \
+  ! -name '.git' ! -name 'README.md' -exec rm -rf {} +
 
 echo "→ copiando arquivos estáticos"
 cp "$AQUI"/*.html          "$SAIDA/"
