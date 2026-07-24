@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Aula guiada — mobile first.
+   Aula guiada · mobile first.
    Estrutura: coluna de altura de tela → topo (progresso) | palco (rola) |
    narrador (fixo embaixo). Media queries só ampliam a partir de 720px.
    ========================================================================== */
@@ -294,4 +294,157 @@
 /* Quem prefere menos movimento não recebe animação de entrada */
 @media (prefers-reduced-motion: reduce) {
   .passo-dot { transition: none; }
+}
+
+/* ==================================================== aula 2 · wrappers */
+
+/* faixa de analogia do mundo real: sempre vem ANTES do código */
+.analogia {
+  border: 2px dashed var(--gold); border-radius: 14px;
+  background: rgba(255,200,0,.05);
+  padding: 14px; margin-bottom: 14px; text-align: center;
+}
+.analogia-titulo {
+  font-size: 0.62rem; font-weight: 800; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+.analogia-cena {
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px; flex-wrap: wrap; font-size: 0.82rem; color: var(--muted);
+}
+.analogia-cena .grande { font-size: 2.4rem; line-height: 1; }
+
+/* presente / caixa embrulhada */
+.presente {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
+  background: var(--card-2); border: 2px solid #ecc48d; border-radius: 12px;
+  padding: 10px 14px; font-family: var(--mono); font-size: 0.78rem;
+}
+.presente .tampa { font-size: 1.6rem; line-height: 1; }
+
+/* prateleira do cache */
+.prateleira {
+  display: flex; gap: 6px; justify-content: center; align-items: flex-end;
+  flex-wrap: wrap; padding: 12px 8px 14px;
+  border: 2px solid var(--border); border-radius: 12px;
+  background: linear-gradient(180deg, transparent 74%, rgba(139,90,43,.35) 74%);
+  margin-bottom: 12px;
+}
+.prateleira-rotulo {
+  width: 100%; text-align: center; font-size: 0.62rem; font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px;
+}
+.slot {
+  min-width: 46px; padding: 9px 6px; border-radius: 8px; text-align: center;
+  background: var(--card-2); border: 2px solid #8b5a2b;
+  font-family: var(--mono); font-size: 0.76rem; color: #ecc48d;
+  transition: transform .15s, border-color .15s, background .15s;
+}
+.slot.vago { border-style: dashed; border-color: var(--dim); color: var(--dim); background: transparent; }
+.slot.acesa {
+  border-color: var(--gold); background: rgba(255,200,0,.16);
+  color: var(--gold); transform: translateY(-4px);
+}
+.slot.nova { border-color: var(--blue); color: #82aaff; }
+
+.pedidos { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.pedido {
+  font-family: var(--mono); font-size: 0.76rem; color: var(--muted);
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 10px;
+}
+.pedido b { color: var(--gold); font-weight: 700; }
+.pedido.diferente b { color: #82aaff; }
+
+/* memória: bancada (stack) e estante (heap) */
+.memoria { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.mem-col {
+  border: 2px solid var(--border); border-radius: 12px; padding: 10px;
+  min-height: 110px;
+}
+.mem-col h5 {
+  font-size: 0.62rem; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 8px; text-align: center;
+}
+.mem-col.heap h5 { color: var(--purple); }
+.mem-item {
+  background: var(--card-2); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 10px; font-family: var(--mono); font-size: 0.74rem;
+  text-align: center; margin-bottom: 6px;
+}
+.mem-item.ref { border-color: var(--blue); color: #82aaff; }
+.mem-item.caixa-mini { border-color: #ecc48d; color: #ecc48d; }
+.mem-vazio { text-align: center; color: var(--dim); font-size: 0.72rem; padding: 16px 0; }
+
+/* linhas de código clicáveis (o compilador reescreve) */
+.linha-click { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.linha-click pre.code { margin-bottom: 8px; transition: border-color .15s; }
+.linha-click:not(.feita):hover pre.code,
+.linha-click:not(.feita):active pre.code { border-color: var(--purple); }
+.linha-click .aviso { font-size: 0.68rem; color: var(--dim); text-align: right; margin: -4px 2px 10px; }
+.linha-click.feita .aviso { color: var(--green); }
+
+/* classificação: valor cru ou caixa? */
+.class-card {
+  background: var(--card); border: 2px solid var(--border); border-radius: 12px;
+  padding: 12px; margin-bottom: 10px;
+}
+.class-card p { font-size: 0.86rem; margin-bottom: 10px; }
+.class-card .escolhas { display: flex; gap: 8px; }
+.class-card .chip { flex: 1; }
+.class-card.certa  { border-color: var(--green); }
+.class-card.errada { border-color: var(--red); }
+.class-card .veredito { font-size: 0.74rem; margin-top: 8px; color: var(--muted); line-height: 1.5; }
+
+@media (min-width: 720px) {
+  .slot { min-width: 56px; font-size: 0.82rem; }
+  .analogia-cena { font-size: 0.9rem; gap: 20px; }
+  .analogia-cena .grande { font-size: 3rem; }
+}
+
+/* ==================================================== aula 3 · strings */
+
+/* placa gravada em pedra: a String imutável */
+.placa {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 4px;
+  background: linear-gradient(180deg, #3a3f52, #2b2f40);
+  border: 3px solid #565d78; border-radius: 10px;
+  padding: 14px 20px; font-family: var(--mono);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.5), 0 4px 0 #1c1f2b;
+}
+.placa .gravado {
+  font-size: 1.3rem; font-weight: 800; letter-spacing: .14em;
+  color: #cdd5ea; text-shadow: 0 1px 0 #000, 0 -1px 0 rgba(255,255,255,.15);
+}
+.placa small { font-size: 0.64rem; color: var(--dim); }
+.placa.nova { border-color: var(--green); }
+.placa.nova .gravado { color: #9ae65a; }
+
+/* pilha de versões descartadas do copista */
+.pilha-lixo {
+  min-height: 54px; border: 2px dashed var(--red); border-radius: 12px;
+  display: flex; gap: 6px; align-items: center; justify-content: center;
+  flex-wrap: wrap; padding: 8px; margin-top: 10px; opacity: .9;
+}
+.pilha-lixo .rotulo { font-size: 0.62rem; color: var(--red); text-transform: uppercase; letter-spacing: .08em; font-weight: 800; }
+.livro-velho { font-size: 1.3rem; filter: grayscale(.6); }
+
+.contador {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 12px 0;
+}
+.contador .med {
+  background: var(--card); border: 2px solid var(--border); border-radius: 10px;
+  padding: 8px 14px; text-align: center; min-width: 108px;
+}
+.contador .med .v { font-family: var(--mono); font-size: 1.3rem; font-weight: 800; color: var(--gold); }
+.contador .med .k { font-size: 0.62rem; color: var(--dim); text-transform: uppercase; letter-spacing: .06em; }
+.contador .med.ruim .v { color: var(--red); }
+.contador .med.bom .v  { color: var(--green); }
+
+.livro-atual { font-size: 2.2rem; text-align: center; }
+.paginas { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
+.pagina {
+  width: 26px; height: 34px; border-radius: 4px;
+  background: #f5ecd7; border: 1px solid #c9b98a; color: #6b5b2a;
+  display: grid; place-items: center; font-family: var(--mono); font-size: 0.7rem;
 }

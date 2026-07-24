@@ -8,7 +8,7 @@ const Curso = {
    * Base dos links para docs/*.md.
    * Dentro do repositório do curso, '../' resolve para a pasta docs local.
    * No bundle estático publicado no GitHub Pages, o build troca por uma URL
-   * absoluta do repositório — ver bundle/build.sh.
+   * absoluta do repositório: ver bundle/build.sh.
    */
   docBase: '../',
 
@@ -53,7 +53,7 @@ const Curso = {
     return this.MODULOS[n] || `Módulo ${n}`;
   },
 
-  /** Caminho da pasta no repositório — o separador do módulo 26 é diferente. */
+  /** Caminho da pasta no repositório: o separador do módulo 26 é diferente. */
   pasta(n) {
     return n === 26 ? '26 - Optional' : `${n}. ${this.nome(n)}`;
   },
@@ -72,7 +72,7 @@ const Trilha = (() => {
 
   function todas() { return unidades; }
 
-  /** Todas as lições, na ordem da trilha — a sequência de desbloqueio. */
+  /** Todas as lições, na ordem da trilha: a sequência de desbloqueio. */
   function sequencia() {
     return unidades.flatMap(u => u.licoes);
   }

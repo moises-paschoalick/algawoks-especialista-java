@@ -38,7 +38,7 @@ const Editor = (() => {
   }
 
   /**
-   * Cria um editor dentro de `host`. Resolve sempre — com Monaco ou com textarea.
+   * Cria um editor dentro de `host`. Resolve sempre: com Monaco ou com textarea.
    * @returns {Promise<{getValue:Function, setValue:Function, foco:Function}>}
    */
   async function criar(host, { valor = '', linguagem = 'java' } = {}) {

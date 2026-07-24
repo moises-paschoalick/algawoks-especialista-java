@@ -1,5 +1,5 @@
 /**
- * Renderização de conteúdo — compartilhada pela página de teoria e pela lição.
+ * Renderização de conteúdo: compartilhada pela página de teoria e pela lição.
  * O conteúdo é autorado como blocos ({p}, {h}, {ul}, {code}, {tabela}, {nota})
  * para que o realce de sintaxe e o mini-markdown fiquem centralizados aqui.
  */
@@ -24,7 +24,7 @@ const Render = (() => {
     'g'
   );
 
-  /** Realce de Java em um passe único — nada de reprocessar HTML já gerado. */
+  /** Realce de Java em um passe único: nada de reprocessar HTML já gerado. */
   function realce(src) {
     return escapar(src).replace(TOKEN, (m, com, str, ann, kw) => {
       if (com) return `<span class="cm">${com}</span>`;
@@ -66,13 +66,13 @@ const Render = (() => {
       .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   }
 
-  /** Caixa apontando para o módulo do curso — onde está o vídeo e o código commitado. */
+  /** Caixa apontando para o módulo do curso: onde está o vídeo e o código commitado. */
   function refModulo(numeros, { compacto = false } = {}) {
     return [].concat(numeros).map(m => `
       <div class="modref">
         <div class="modref-icon">📹</div>
         <div class="modref-body">
-          <b>Módulo ${m} — ${Curso.nome(m)}</b>
+          <b>Módulo ${m} · ${Curso.nome(m)}</b>
           ${compacto ? '' : 'Reveja a aula se travar em algum ponto. Seu código deste módulo está em:'}
           <div class="modref-path">${Curso.pasta(m)}/</div>
         </div>
@@ -85,8 +85,7 @@ const Render = (() => {
         <div class="modref-icon">📄</div>
         <div class="modref-body">
           <b>Teoria completa em markdown</b>
-          <a href="${Curso.docBase}${licao.unidade.doc}" target="_blank">${licao.unidade.doc}</a>
-          — a página de referência deste tema.
+          <a href="${Curso.docBase}${licao.unidade.doc}" target="_blank">${licao.unidade.doc}</a>: a página de referência deste tema.
         </div>
       </div>`;
   }

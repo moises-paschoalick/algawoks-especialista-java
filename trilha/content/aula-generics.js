@@ -1,14 +1,14 @@
 /**
- * Aula guiada — Generics (módulo 17 · docs/page_03.md)
+ * Aula guiada · Generics (módulo 17 · docs/page_03.md)
  *
  * Arco pedagógico: primeiro o aluno SENTE o problema (caixa sem etiqueta que
  * explode em runtime), só depois recebe a solução. Cada conceito entra em uma
- * etapa e exige uma ação — nada avança sozinho.
+ * etapa e exige uma ação: nada avança sozinho.
  */
 Aula.registrar({
   id: 'generics',
   licao: 'gen-basico',
-  titulo: 'Generics — a caixa com etiqueta',
+  titulo: 'Generics: a caixa com etiqueta',
   personagem: { nome: 'Bean' },
   fechamento: 'Você não decorou sintaxe: viu o problema que Generics resolve. É assim que o conceito fica.',
 
@@ -17,7 +17,7 @@ Aula.registrar({
     /* ---------------------------------------------------------- 1 intro */
     {
       fala: [
-        'Oi! Eu sou o **Bean**. Hoje a gente destrava **Generics** — e eu prometo: sem parede de texto.',
+        'Oi! Eu sou o **Bean**. Hoje a gente destrava **Generics**, e eu prometo: sem parede de texto.',
         'Vou te mostrar um problema real primeiro. A solução só faz sentido depois que dói.',
       ],
       palco(host, api) {
@@ -47,7 +47,7 @@ Aula.registrar({
       dica: 'Clique nos três itens da esquerda',
       palco(host, api) {
         host.innerHTML = `
-          <div class="palco-titulo">Java 1.4 — sem generics</div>
+          <div class="palco-titulo">Java 1.4: sem generics</div>
           <div class="cena-linha">
             <div class="bandeja">
               <div class="bandeja-label">Itens</div>
@@ -78,7 +78,7 @@ Aula.registrar({
 
             if (++postos === 3) {
               api.gsap.to(caixa, { borderColor: '#ff9600', duration: 0.4 });
-              api.pronto('Três tipos diferentes na mesma lista — e ninguém reclamou');
+              api.pronto('Três tipos diferentes na mesma lista, e ninguém reclamou');
             }
           };
         });
@@ -127,7 +127,7 @@ String s = (String) lista.get(1);   // posição 1 = o número 42`)}
     class java.lang.Integer cannot be cast to class java.lang.String</span>`;
           api.gsap.from(saida, { y: 12, opacity: 0, duration: 0.35 });
           api.reagir('alerta');
-          api.pronto('O programa compilou — e quebrou rodando');
+          api.pronto('O programa compilou, e quebrou rodando');
         };
       },
     },
@@ -136,7 +136,7 @@ String s = (String) lista.get(1);   // posição 1 = o número 42`)}
     {
       fala: [
         'Repara no detalhe que importa: esse código **compilou sem nenhum aviso**.',
-        'O compilador não tinha como te ajudar — ele não sabia o que tinha dentro da caixa.',
+        'O compilador não tinha como te ajudar: ele não sabia o que tinha dentro da caixa.',
       ],
       interativo: true,
       palco(host, api) {
@@ -146,9 +146,9 @@ String s = (String) lista.get(1);   // posição 1 = o número 42`)}
             Quando o <code style="color:#ff7b72">ClassCastException</code> apareceu?
           </h2>
           <div class="options">
-            <button class="option" data-i="0"><span class="option-key">A</span><span>Na compilação — o javac acusou o erro</span></button>
+            <button class="option" data-i="0"><span class="option-key">A</span><span>Na compilação: o javac acusou o erro</span></button>
             <button class="option" data-i="1"><span class="option-key">B</span><span>Só em tempo de execução, quando a linha rodou</span></button>
-            <button class="option" data-i="2"><span class="option-key">C</span><span>Nunca — o cast sempre funciona</span></button>
+            <button class="option" data-i="2"><span class="option-key">C</span><span>Nunca: o cast sempre funciona</span></button>
           </div>`;
 
         const correta = 1;
@@ -165,7 +165,7 @@ String s = (String) lista.get(1);   // posição 1 = o número 42`)}
             api.registrarResposta(certo);
             api.pronto(certo
               ? 'Isso. Erro que só aparece rodando é o mais caro que existe'
-              : 'É em execução — e é exatamente esse o problema');
+              : 'É em execução, e é exatamente esse o problema');
           };
         });
       },
@@ -176,14 +176,14 @@ String s = (String) lista.get(1);   // posição 1 = o número 42`)}
       fala: [
         'Generics é, literalmente, **colar uma etiqueta na caixa**.',
         'Você avisa o compilador: aqui só entra `String`.',
-        'Arrasta a etiqueta pra caixa — pode clicar nela.',
+        'Arrasta a etiqueta pra caixa: pode clicar nela.',
       ],
       interativo: true,
       emocao: 'feliz',
       dica: 'Clique na etiqueta <String>',
       palco(host, api) {
         host.innerHTML = `
-          <div class="palco-titulo">Java 5+ — com generics</div>
+          <div class="palco-titulo">Java 5+: com generics</div>
           <div class="cena-linha">
             <div class="bandeja">
               <div class="bandeja-label">Etiqueta</div>
@@ -234,7 +234,7 @@ String s = (String) lista.get(1);   // posição 1 = o número 42`)}
       dica: 'Clique nos três itens',
       palco(host, api) {
         host.innerHTML = `
-          <div class="palco-titulo">List&lt;String&gt; — o compilador barra na porta</div>
+          <div class="palco-titulo">List&lt;String&gt;: o compilador barra na porta</div>
           <div class="cena-linha">
             <div class="bandeja">
               <div class="bandeja-label">Itens</div>
@@ -273,7 +273,7 @@ String s = (String) lista.get(1);   // posição 1 = o número 42`)}
                 { x: 26, duration: 0.12, yoyo: true, repeat: 3, ease: 'power1.inOut',
                   onComplete: () => api.gsap.to(item, { x: 0, duration: 0.2 }) });
               saida.innerHTML = `<span class="erro">lista.add(${item.textContent.trim()});
-    ERRO DE COMPILAÇÃO: incompatible types — o javac barrou antes de rodar</span>`;
+    ERRO DE COMPILAÇÃO: incompatible types: o javac barrou antes de rodar</span>`;
               api.reagir('alerta');
             }
 
@@ -324,7 +324,7 @@ for (String x : lista) { }  // for-each direto`)}
     {
       fala: [
         'Agora o pulo do gato: você pode criar **suas próprias** classes com etiqueta.',
-        'O `T` é um parâmetro — só que de **tipo**, não de valor. É um espaço em branco.',
+        'O `T` é um parâmetro, só que de **tipo**, não de valor. É um espaço em branco.',
         'Escolhe um tipo embaixo e olha o `T` sumindo.',
       ],
       interativo: true,
@@ -344,7 +344,7 @@ for (String x : lista) { }  // for-each direto`)}
 }`;
 
         host.innerHTML = `
-          <div class="palco-titulo">Classe genérica — o T é preenchido no uso</div>
+          <div class="palco-titulo">Classe genérica: o T é preenchido no uso</div>
           <div id="codigoHost">${api.codigo(molde('T'))}</div>
           <div class="palco-escolhas">
             <button class="chip ativo" data-t="T">T (declaração)</button>
@@ -352,7 +352,7 @@ for (String x : lista) { }  // for-each direto`)}
             <button class="chip" data-t="Integer">Integer</button>
             <button class="chip" data-t="Produto">Produto</button>
           </div>
-          <div class="saida" id="uso">Caixa&lt;T&gt; — ainda é um molde, nada foi decidido</div>`;
+          <div class="saida" id="uso">Caixa&lt;T&gt;: ainda é um molde, nada foi decidido</div>`;
 
         const codigoHost = host.querySelector('#codigoHost');
         const uso = host.querySelector('#uso');
@@ -369,13 +369,13 @@ for (String x : lista) { }  // for-each direto`)}
             api.gsap.from(codigoHost, { opacity: 0, y: 8, duration: 0.3 });
 
             uso.innerHTML = t === 'T'
-              ? 'Caixa&lt;T&gt; — ainda é um molde, nada foi decidido'
+              ? 'Caixa&lt;T&gt;: ainda é um molde, nada foi decidido'
               : `<span class="ok">Caixa&lt;${t}&gt; caixa = new Caixa&lt;&gt;();
 caixa.guardar(${t === 'String' ? '"oi"' : t === 'Integer' ? '42' : 'new Produto()'});
 ${t} valor = caixa.abrir();   // sem cast</span>`;
 
             escolhidos.add(t);
-            if (escolhidos.size >= 3) api.pronto('Uma classe só, servindo qualquer tipo — com segurança');
+            if (escolhidos.size >= 3) api.pronto('Uma classe só, servindo qualquer tipo: com segurança');
           };
         });
       },
@@ -437,8 +437,7 @@ ${t} valor = caixa.abrir();   // sem cast</span>`;
             if (testados === 4) {
               saida.innerHTML += `
 <span style="color:#94a3b8">
-E o bônus: dentro da classe, T ganha os métodos de Number —
-você pode chamar valor.doubleValue() sem cast.</span>`;
+E o bônus: dentro da classe, T ganha os métodos de Number: você pode chamar valor.doubleValue() sem cast.</span>`;
               api.pronto('O limite não só filtra: ele libera os métodos do tipo');
             }
           };
@@ -459,13 +458,13 @@ você pode chamar valor.doubleValue() sem cast.</span>`;
 
         const linhas = [
           { html: `<span class="hl">&lt;T&gt;</span> <span style="color:#c792ea">public static</span>  ...`,
-            nota: 'Errado — o &lt;T&gt; não vem antes dos modificadores' },
+            nota: 'Errado: o &lt;T&gt; não vem antes dos modificadores' },
           { html: `<span style="color:#c792ea">public static</span> <span class="hl">&lt;T&gt;</span> T maior(T a, T b) {`,
-            nota: 'Certo — modificadores, depois &lt;T&gt;, depois o retorno' },
+            nota: 'Certo: modificadores, depois &lt;T&gt;, depois o retorno' },
           { html: `    <span style="color:#c792ea">return</span> a.compareTo(b) &gt;= 0 ? a : b;`,
             nota: 'Mas compareTo só existe se T for Comparable...' },
           { html: `<span style="color:#c792ea">public static</span> &lt;T <span class="hl">extends Comparable&lt;T&gt;</span>&gt; T maior(T a, T b) {`,
-            nota: 'Com o limite, o método compila — e aceita qualquer tipo comparável' },
+            nota: 'Com o limite, o método compila, e aceita qualquer tipo comparável' },
         ];
 
         const host2 = host.querySelector('#linhas');
@@ -483,7 +482,7 @@ você pode chamar valor.doubleValue() sem cast.</span>`;
     /* ------------------------------------------------------- 11 checagem */
     {
       fala: [
-        'Última checagem — essa é a pergunta que o entrevistador faz pra ver se você entendeu de verdade.',
+        'Última checagem: essa é a pergunta que o entrevistador faz pra ver se você entendeu de verdade.',
       ],
       interativo: true,
       palco(host, api) {
@@ -514,7 +513,7 @@ você pode chamar valor.doubleValue() sem cast.</span>`;
             const certo = escolha === correta;
             api.registrarResposta(certo);
             api.pronto(certo
-              ? 'Exatamente — segurança de tipo em compilação'
+              ? 'Exatamente: segurança de tipo em compilação'
               : 'É a B: o erro aparece antes de rodar, e o cast some');
           };
         });
@@ -524,7 +523,7 @@ você pode chamar valor.doubleValue() sem cast.</span>`;
     /* ---------------------------------------------------------- 12 recap */
     {
       fala: [
-        'Fecha comigo. Cinco coisas que você viu — e uma que fica pra próxima aula.',
+        'Fecha comigo. Cinco coisas que você viu, e uma que fica pra próxima aula.',
       ],
       emocao: 'feliz',
       palco(host, api) {
@@ -534,7 +533,7 @@ você pode chamar valor.doubleValue() sem cast.</span>`;
           ['🏷️', '<code>List&lt;String&gt;</code> é a etiqueta', 'o compilador vira porteiro'],
           ['🧊', '<code>&lt;T&gt;</code> é parâmetro de tipo', 'um molde que serve qualquer tipo'],
           ['🚪', '<code>&lt;T extends Number&gt;</code>', 'filtra e libera os métodos do limite'],
-          ['🃏', 'Falta: wildcards e PECS', '<code>? extends</code> e <code>? super</code> — na teoria completa'],
+          ['🃏', 'Falta: wildcards e PECS', '<code>? extends</code> e <code>? super</code>, na teoria completa'],
         ];
 
         host.innerHTML = `

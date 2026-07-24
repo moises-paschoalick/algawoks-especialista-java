@@ -21,7 +21,7 @@
     btn.textContent = Progress.modoLivre() ? '🔓 Modo livre: ligado' : '🔒 Modo livre: desligado';
   }
 
-  // o hub segue a mesma base dos docs — local no repo, absoluto no bundle
+  // o hub segue a mesma base dos docs: local no repo, absoluto no bundle
   el('linkHub').href = `${Curso.docBase}README.md`;
 
   function painelRevisao() {
@@ -35,7 +35,7 @@
 
     host.innerHTML = `
       <div class="review-panel">
-        <h3>🔁 Revisar hoje — ${devidas.length} ${devidas.length === 1 ? 'lição' : 'lições'}</h3>
+        <h3>🔁 Revisar hoje: ${devidas.length} ${devidas.length === 1 ? 'lição' : 'lições'}</h3>
         ${devidas.map(l => `
           <div class="review-item">
             <span>${l.unidade.icone} ${l.titulo}</span>

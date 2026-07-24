@@ -1,4 +1,4 @@
-/* Unidade 8 — JDBC e Padrão Repository (docs/page_05.md · módulos 33, 34) */
+/* Unidade 8 · JDBC e Padrão Repository (docs/page_05.md · módulos 33, 34) */
 Trilha.add({
   numero: 8,
   titulo: 'JDBC e Repository',
@@ -16,7 +16,7 @@ Trilha.add({
       titulo: 'Conexão e PreparedStatement',
       icone: '🔌',
       modulo: 33,
-      resumo: 'Nunca concatene SQL — e o motivo vai além de segurança.',
+      resumo: 'Nunca concatene SQL, e o motivo vai além de segurança.',
       teoria: [
         { h: 'Dependência e conexão' },
         { code: `<dependency>
@@ -36,7 +36,7 @@ public static Connection abrir() throws SQLException {
 try (Connection conn = abrir()) {
     // ...
 }` },
-        { nota: 'Desde o JDBC 4.0 não é preciso chamar `Class.forName("com.mysql.cj.jdbc.Driver")` — o driver se registra sozinho pelo ServiceLoader.' },
+        { nota: 'Desde o JDBC 4.0 não é preciso chamar `Class.forName("com.mysql.cj.jdbc.Driver")`: o driver se registra sozinho pelo ServiceLoader.' },
         { h: 'Statement é vulnerável' },
         { code: `// NUNCA faça isso
 String sql = "SELECT * FROM usuario WHERE login = '" + login + "'";
@@ -92,7 +92,7 @@ try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ['`TIMESTAMP`', '`LocalDateTime`', '`getObject(col, LocalDateTime.class)`'],
             ['`BOOLEAN`', '`boolean`', '`getBoolean`'],
           ] } },
-        { nota: 'Para valor monetário use `BigDecimal`, nunca `double` — ponto flutuante binário não representa 0,1 exatamente e o arredondamento aparece no extrato do cliente.' },
+        { nota: 'Para valor monetário use `BigDecimal`, nunca `double`: ponto flutuante binário não representa 0,1 exatamente e o arredondamento aparece no extrato do cliente.' },
         { h: 'UPDATE, DELETE e transação' },
         { code: `int linhas = ps.executeUpdate();   // quantas linhas afetadas
 
@@ -117,7 +117,7 @@ try {
       titulo: 'O padrão Repository',
       icone: '📚',
       modulo: 34,
-      resumo: 'Isolar a persistência atrás de uma interface — e o serviço deixar de saber o que é SQL.',
+      resumo: 'Isolar a persistência atrás de uma interface, e o serviço deixar de saber o que é SQL.',
       teoria: [
         { h: 'O problema sem o padrão' },
         { code: `public class PedidoService {
@@ -212,7 +212,7 @@ try {
 // o teste roda em milissegundos, sem banco
 var service = new ProdutoService(new ProdutoRepositoryMemoria());` },
         { nota: 'Esse é o ganho concreto do padrão: a mesma classe de serviço roda contra MySQL em produção e contra um `HashMap` no teste, sem alterar uma linha dela. É Inversão de Dependência (o D do SOLID) na prática.' },
-        { p: 'Converta `SQLException` (checked, específica de JDBC) em uma exceção **não-checada do seu domínio** dentro do repositório. Assim a camada de serviço não fica acoplada à tecnologia de persistência — é exatamente o que o Spring faz com `DataAccessException`.' },
+        { p: 'Converta `SQLException` (checked, específica de JDBC) em uma exceção **não-checada do seu domínio** dentro do repositório. Assim a camada de serviço não fica acoplada à tecnologia de persistência: é exatamente o que o Spring faz com `DataAccessException`.' },
       ],
       passos: [],
     },

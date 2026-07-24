@@ -1,4 +1,4 @@
-/* Unidade 7 — I/O, NIO2 e Serialização (docs/page_08.md · módulos 28, 29, 30) */
+/* Unidade 7 · I/O, NIO2 e Serialização (docs/page_08.md · módulos 28, 29, 30) */
 Trilha.add({
   numero: 7,
   titulo: 'I/O, NIO2 e Serialização',
@@ -29,7 +29,7 @@ Trilha.add({
             ['Integração com Stream', 'não', 'sim'],
           ] } },
         { p: 'O problema central da API antiga: `file.delete()` devolve `false` e você não sabe se o arquivo não existia, se estava em uso ou se faltou permissão. `Files.delete()` lança a exceção certa.' },
-        { h: 'Path — representa o caminho, não o arquivo' },
+        { h: 'Path: representa o caminho, não o arquivo' },
         { code: `Path p = Path.of("dados", "clientes.txt");        // Java 11+
 Path p2 = Paths.get("/home/user/dados.txt");      // forma antiga, equivalente
 
@@ -41,8 +41,8 @@ p.resolve("sub.txt"); // concatena
 p.relativize(outro);  // caminho relativo entre dois
 
 Path.of("a/b").equals(Path.of("a/b"));   // compara o caminho, não o conteúdo` },
-        { nota: '`Path` é só o endereço — criá-lo não toca no disco. Nada existe até você chamar algo de `Files`.' },
-        { h: 'Files — as operações' },
+        { nota: '`Path` é só o endereço: criá-lo não toca no disco. Nada existe até você chamar algo de `Files`.' },
+        { h: 'Files: as operações' },
         { code: `Files.exists(p);            Files.notExists(p);
 Files.isDirectory(p);       Files.isRegularFile(p);
 Files.isReadable(p);        Files.size(p);
@@ -72,7 +72,7 @@ try (Stream<String> linhas = Files.lines(p)) {
           .map(String::trim)
           .forEach(System.out::println);
 }` },
-        { nota: '`Files.lines` devolve um stream que segura o arquivo aberto — sempre dentro de `try-with-resources`. `readAllLines` carrega o arquivo inteiro na heap: em log de gigabytes é `OutOfMemoryError` na certa.' },
+        { nota: '`Files.lines` devolve um stream que segura o arquivo aberto, então use sempre dentro de `try-with-resources`. `readAllLines` carrega o arquivo inteiro na heap: em log de gigabytes é `OutOfMemoryError` na certa.' },
         { h: 'Percorrer diretórios' },
         { code: `// simples e lazy
 try (Stream<Path> caminhos = Files.walk(Path.of("projeto"))) {
@@ -106,7 +106,7 @@ Files.walkFileTree(raiz, new SimpleFileVisitor<Path>() {
             ['`CREATE_NEW`', 'cria; falha se já existir'],
             ['`APPEND`', 'escreve no fim'],
             ['`TRUNCATE_EXISTING`', 'zera antes de escrever (padrão da escrita)'],
-            ['`DELETE_ON_CLOSE`', 'apaga ao fechar — arquivo temporário'],
+            ['`DELETE_ON_CLOSE`', 'apaga ao fechar: arquivo temporário'],
           ] } },
       ],
       passos: [],
@@ -125,7 +125,7 @@ Files.walkFileTree(raiz, new SimpleFileVisitor<Path>() {
           head: ['Família', 'Base', 'Para'],
           rows: [
             ['Byte', '`InputStream` / `OutputStream`', 'imagem, PDF, qualquer binário'],
-            ['Caractere', '`Reader` / `Writer`', 'texto — trata encoding'],
+            ['Caractere', '`Reader` / `Writer`', 'texto: trata encoding'],
             ['Buffer', '`BufferedReader` / `BufferedWriter`', 'envolve os outros e reduz chamadas ao SO'],
           ] } },
         { code: `// leitura de texto com buffer e charset explícito
@@ -148,8 +148,8 @@ try (InputStream in = Files.newInputStream(origem);
      OutputStream out = Files.newOutputStream(destino)) {
     in.transferTo(out);         // Java 9+
 }` },
-        { nota: 'Sempre declare o **charset**. Sem ele, a JVM usa o padrão da plataforma e o mesmo código produz resultado diferente em máquinas diferentes — origem clássica de acentuação quebrada.' },
-        { p: 'Sem buffer, cada `read()` vira uma chamada ao sistema operacional. Com `BufferedReader`, o Java lê um bloco grande de uma vez e serve as linhas da memória — costuma ser uma ordem de grandeza mais rápido.' },
+        { nota: 'Sempre declare o **charset**. Sem ele, a JVM usa o padrão da plataforma e o mesmo código produz resultado diferente em máquinas diferentes, origem clássica de acentuação quebrada.' },
+        { p: 'Sem buffer, cada `read()` vira uma chamada ao sistema operacional. Com `BufferedReader`, o Java lê um bloco grande de uma vez e serve as linhas da memória, o que costuma ser uma ordem de grandeza mais rápido.' },
       ],
       passos: [],
     },
@@ -160,9 +160,9 @@ try (InputStream in = Files.newInputStream(origem);
       titulo: 'Serialização de objetos',
       icone: '💾',
       modulo: 30,
-      resumo: 'Transformar objeto em bytes — e os cuidados com serialVersionUID e transient.',
+      resumo: 'Transformar objeto em bytes, e os cuidados com serialVersionUID e transient.',
       teoria: [
-        { p: 'Serializar é converter o objeto em uma sequência de bytes para gravar em arquivo ou enviar pela rede. A classe precisa implementar `Serializable` — uma interface **marcadora**, sem métodos.' },
+        { p: 'Serializar é converter o objeto em uma sequência de bytes para gravar em arquivo ou enviar pela rede. A classe precisa implementar `Serializable`: uma interface **marcadora**, sem métodos.' },
         { code: `public class Cliente implements Serializable {
 
     @Serial
@@ -193,7 +193,7 @@ try (ObjectInputStream in = new ObjectInputStream(
           'Resultado: dados gravados ontem deixam de ser lidos hoje',
           'Declarando `1L` explicitamente, você controla quando a compatibilidade quebra',
         ] },
-        { nota: 'Campo novo em classe com `serialVersionUID` fixo é lido como valor padrão (`null`/`0`) nos dados antigos — comportamento previsível. Sem o ID declarado, você só recebe uma exceção.' },
+        { nota: 'Campo novo em classe com `serialVersionUID` fixo é lido como valor padrão (`null`/`0`) nos dados antigos, comportamento previsível. Sem o ID declarado, você só recebe uma exceção.' },
         { h: 'transient' },
         { p: 'Marca campos que **não devem** ser serializados: senhas, tokens, caches, conexões e qualquer objeto não-serializável. Na volta, o campo recebe o valor padrão do tipo.' },
         { h: 'Serialização customizada' },
@@ -207,7 +207,7 @@ private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundE
     this.senha = descriptografar((String) in.readObject());
     this.cache = new HashMap<>();          // reconstroi o que era transient
 }` },
-        { p: 'Se um campo referencia outro objeto, ele **também** precisa ser `Serializable` — senão a gravação falha com `NotSerializableException`. A serialização é em cascata por todo o grafo de objetos.' },
+        { p: 'Se um campo referencia outro objeto, ele **também** precisa ser `Serializable`, senão a gravação falha com `NotSerializableException`. A serialização é em cascata por todo o grafo de objetos.' },
         { nota: 'Em sistemas novos, prefira JSON (Jackson) ou outro formato explícito para trocar dados entre serviços. A serialização nativa acopla o formato à estrutura das classes Java e já foi origem de várias falhas de segurança conhecidas.' },
       ],
       passos: [],

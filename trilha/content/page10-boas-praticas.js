@@ -1,4 +1,4 @@
-/* Unidade 10 — Boas Práticas e Design Patterns (docs/page_10.md · módulos 6, 15, 31, 32) */
+/* Unidade 10 · Boas Práticas e Design Patterns (docs/page_10.md · módulos 6, 15, 31, 32) */
 Trilha.add({
   numero: 10,
   titulo: 'Boas Práticas e Patterns',
@@ -24,7 +24,7 @@ int d;
 List<Cliente> l;
 void proc(Cliente c) { }
 
-// bom — o nome dispensa o comentário
+// bom: o nome dispensa o comentário
 int diasDesdeUltimaCompra;
 List<Cliente> clientesInadimplentes;
 void enviarCobranca(Cliente cliente) { }` },
@@ -92,7 +92,7 @@ contador++;
 // bom: explica o PORQUÊ, que o código não consegue dizer
 // A API de terceiros limita a 100 req/min; sem esta pausa recebemos 429.
 Thread.sleep(600);` },
-        { nota: 'Comentário que descreve o "o quê" envelhece e vira mentira. Comentário que descreve o "porquê" — regra de negócio, decisão técnica, limitação externa — é o único que se paga.' },
+        { nota: 'Comentário que descreve o "o quê" envelhece e vira mentira. Comentário que descreve o "porquê" (regra de negócio, decisão técnica, limitação externa) é o único que se paga.' },
       ],
       passos: [],
     },
@@ -105,7 +105,7 @@ Thread.sleep(600);` },
       modulo: 15,
       resumo: 'Os quatro padrões que mais aparecem em entrevista de Java.',
       teoria: [
-        { h: 'Strategy — algoritmo intercambiável' },
+        { h: 'Strategy: algoritmo intercambiável' },
         { p: 'Problema: um `if/else` gigante escolhendo entre variações do mesmo cálculo. Solução: cada variação vira uma classe atrás de uma interface.' },
         { code: `public interface CalculadoraFrete {
     BigDecimal calcular(Pedido pedido);
@@ -123,8 +123,8 @@ public class PedidoService {
     private final CalculadoraFrete calculadora;      // recebe a estratégia
     public PedidoService(CalculadoraFrete calculadora) { this.calculadora = calculadora; }
 }` },
-        { p: 'Ganho: adicionar uma modalidade nova é **criar uma classe**, sem tocar no serviço — princípio Aberto/Fechado.' },
-        { h: 'Factory — encapsula a criação' },
+        { p: 'Ganho: adicionar uma modalidade nova é **criar uma classe**, sem tocar no serviço, que é o princípio Aberto/Fechado.' },
+        { h: 'Factory: encapsula a criação' },
         { code: `public class CalculadoraFreteFactory {
 
     public static CalculadoraFrete criar(TipoFrete tipo) {
@@ -136,7 +136,7 @@ public class PedidoService {
     }
 }` },
         { p: 'O cliente pede pelo **que quer**, não pelo **como construir**. Factory e Strategy costumam andar juntos: a factory escolhe a strategy.' },
-        { h: 'Decorator — comportamento por composição' },
+        { h: 'Decorator: comportamento por composição' },
         { code: `public interface Notificador {
     void enviar(String mensagem);
 }
@@ -159,7 +159,7 @@ public class NotificadorComLog implements Notificador {
 
 Notificador n = new NotificadorComRetry(new NotificadorComLog(new NotificadorEmail()));` },
         { p: 'É exatamente o que o JDK faz: `new BufferedReader(new InputStreamReader(inputStream))`.' },
-        { h: 'Builder — construção fluente' },
+        { h: 'Builder: construção fluente' },
         { code: `public class Pedido {
     private final String cliente;
     private final List<Item> itens;
@@ -240,7 +240,7 @@ log.debug("Pedido {} com {} itens", pedido.getId(), pedido.getItens().size());` 
             ['`DEBUG`', 'detalhe para investigar', 'desligado'],
             ['`TRACE`', 'passo a passo detalhado', 'desligado'],
           ] } },
-        { p: 'Configurar o nível em `INFO` faz o logger **descartar** as chamadas de `DEBUG` e `TRACE` — os níveis são hierárquicos, do mais grave ao mais detalhado.' },
+        { p: 'Configurar o nível em `INFO` faz o logger **descartar** as chamadas de `DEBUG` e `TRACE`: os níveis são hierárquicos, do mais grave ao mais detalhado.' },
         { h: 'logback.xml' },
         { code: `<configuration>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -265,7 +265,7 @@ log.debug("Pedido {} com {} itens", pedido.getId(), pedido.getItens().size());` 
         <appender-ref ref="ARQUIVO"/>
     </root>
 </configuration>` },
-        { nota: 'Nunca logue senha, token, cartão ou CPF completo. E jamais use `System.out.println` em aplicação: não tem nível, nem timestamp, nem destino configurável — e não some em produção.' },
+        { nota: 'Nunca logue senha, token, cartão ou CPF completo. E jamais use `System.out.println` em aplicação: não tem nível, nem timestamp, nem destino configurável, e não some em produção.' },
       ],
       passos: [],
     },
@@ -288,7 +288,7 @@ log.debug("Pedido {} com {} itens", pedido.getId(), pedido.getItens().size());` 
 │   └── test/
 │       ├── java/          testes
 │       └── resources/
-└── target/                gerado — vai no .gitignore` },
+└── target/                gerado: vai no .gitignore` },
         { p: 'Maven é **convenção sobre configuração**: seguindo essa estrutura, você não precisa configurar nada para compilar, testar e empacotar.' },
         { h: 'pom.xml' },
         { code: `<project>
@@ -314,7 +314,7 @@ log.debug("Pedido {} com {} itens", pedido.getId(), pedido.getItens().size());` 
         </dependency>
     </dependencies>
 </project>` },
-        { p: 'O trio **groupId : artifactId : version** identifica unicamente qualquer artefato no repositório Maven — são as coordenadas.' },
+        { p: 'O trio **groupId : artifactId : version** identifica unicamente qualquer artefato no repositório Maven: são as coordenadas.' },
         { h: 'Ciclo de vida' },
         { tabela: {
           head: ['Fase', 'O que faz'],
@@ -327,7 +327,7 @@ log.debug("Pedido {} com {} itens", pedido.getId(), pedido.getItens().size());` 
             ['`install`', 'instala no repositório local (`~/.m2`)'],
             ['`deploy`', 'publica no repositório remoto'],
           ] } },
-        { p: 'As fases são **sequenciais**: rodar `mvn package` executa validate, compile e test antes. Por isso `mvn clean install` é o comando mais usado — limpa o `target` e roda tudo até a instalação local.' },
+        { p: 'As fases são **sequenciais**: rodar `mvn package` executa validate, compile e test antes. Por isso `mvn clean install` é o comando mais usado: limpa o `target` e roda tudo até a instalação local.' },
         { code: `mvn clean                 # apaga target/
 mvn compile
 mvn test
@@ -340,10 +340,10 @@ mvn -DskipTests package   # pula os testes (use com parcimônia)` },
           head: ['Escopo', 'Compilação', 'Teste', 'Runtime', 'No pacote final'],
           rows: [
             ['`compile` *(padrão)*', '✔', '✔', '✔', 'sim'],
-            ['`provided`', '✔', '✔', '✘', 'não — o servidor fornece'],
-            ['`runtime`', '✘', '✔', '✔', 'sim — ex.: driver JDBC'],
-            ['`test`', '✘', '✔', '✘', 'não — JUnit, Mockito'],
-            ['`import`', '—', '—', '—', 'só em `dependencyManagement`'],
+            ['`provided`', '✔', '✔', '✘', 'não: o servidor fornece'],
+            ['`runtime`', '✘', '✔', '✔', 'sim, ex.: driver JDBC'],
+            ['`test`', '✘', '✔', '✘', 'não: JUnit, Mockito'],
+            ['`import`', 'n/a', 'n/a', 'n/a', 'só em `dependencyManagement`'],
           ] } },
         { nota: 'Escopo errado é fonte comum de "funciona na minha máquina": o driver JDBC em `test` compila e passa nos testes, e o jar de produção sobe sem ele.' },
       ],

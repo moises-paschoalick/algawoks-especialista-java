@@ -1,4 +1,4 @@
-/* Unidade 4 — Exceções e Generics (docs/page_03.md · módulos 16, 17) */
+/* Unidade 4 · Exceções e Generics (docs/page_03.md · módulos 16, 17) */
 Trilha.add({
   numero: 4,
   titulo: 'Exceções e Generics',
@@ -19,18 +19,18 @@ Trilha.add({
       resumo: 'Quem você deve capturar, quem deve deixar subir e quem nunca deve tocar.',
       teoria: [
         { code: `Throwable
-  ├── Error                    — falha grave da JVM: NÃO capture
+  ├── Error: falha grave da JVM: NÃO capture
   │     ├── OutOfMemoryError
   │     └── StackOverflowError
   └── Exception
-        ├── RuntimeException   — UNCHECKED: erro de programação
+        ├── RuntimeException: UNCHECKED: erro de programação
         │     ├── NullPointerException
         │     ├── IllegalArgumentException
         │     ├── IllegalStateException
         │     ├── ArithmeticException
         │     ├── IndexOutOfBoundsException
         │     └── ClassCastException
-        └── (demais)           — CHECKED: condição externa esperada
+        └── (demais): CHECKED: condição externa esperada
               ├── IOException
               ├── SQLException
               └── ClassNotFoundException` },
@@ -47,7 +47,7 @@ Trilha.add({
         { ul: [
           'O chamador **consegue e deve** reagir? → checked (ex.: tentar outro servidor)',
           'É bug de quem chamou (argumento inválido, estado impossível)? → unchecked',
-          'Na dúvida em código de aplicação, prefira **unchecked** — é a tendência das APIs modernas, inclusive Spring',
+          'Na dúvida em código de aplicação, prefira **unchecked**: é a tendência das APIs modernas, inclusive Spring',
         ] },
         { code: `// unchecked: quem chamou errou
 public void sacar(double valor) {
@@ -70,7 +70,7 @@ public String lerConfig(Path caminho) throws IOException {
       titulo: 'try-catch-finally e try-with-resources',
       icone: '🧯',
       modulo: 16,
-      resumo: 'Fechar recurso à mão é onde nasce vazamento — e o Java já resolveu isso.',
+      resumo: 'Fechar recurso à mão é onde nasce vazamento, e o Java já resolveu isso.',
       teoria: [
         { h: 'Estrutura clássica' },
         { code: `try {
@@ -82,11 +82,11 @@ public String lerConfig(Path caminho) throws IOException {
 } catch (Exception e) {             // ...para o mais genérico
     log.error("Falha inesperada", e);
 } finally {
-    // sempre executa — mesmo com return no try
+    // sempre executa: mesmo com return no try
     liberar();
 }` },
-        { nota: 'A ordem importa: se `catch (Exception e)` vier antes de `catch (IOException e)`, o código não compila — o segundo bloco seria inalcançável.' },
-        { h: 'try-with-resources — prefira sempre' },
+        { nota: 'A ordem importa: se `catch (Exception e)` vier antes de `catch (IOException e)`, o código não compila, pois o segundo bloco seria inalcançável.' },
+        { h: 'try-with-resources: prefira sempre' },
         { p: 'Qualquer objeto que implemente `AutoCloseable` é fechado automaticamente, na ordem inversa da abertura, mesmo se houver exceção.' },
         { code: `// antigo: verboso e fácil de errar
 BufferedReader br = null;
@@ -108,7 +108,7 @@ try (Connection conn = ds.getConnection();
      ResultSet rs = ps.executeQuery()) {
     // ...
 }` },
-        { h: 'Encadeamento — preserve a causa' },
+        { h: 'Encadeamento: preserve a causa' },
         { code: `// ruim: o stack trace original some
 catch (SQLException e) {
     throw new RepositorioException("Falha ao salvar");
@@ -122,11 +122,11 @@ catch (SQLException e) {
         { tabela: {
           head: ['Não faça', 'Por quê'],
           rows: [
-            ['`catch (Exception e) { }`', 'engole o erro — o bug vira silêncio'],
+            ['`catch (Exception e) { }`', 'engole o erro: o bug vira silêncio'],
             ['`e.printStackTrace()`', 'não vai para o log estruturado'],
             ['`catch` + `return null`', 'transfere o problema para um NPE longe daqui'],
             ['`return` dentro de `finally`', 'descarta a exceção em andamento'],
-            ['Exceção para controle de fluxo', 'caro e ilegível — use `if`'],
+            ['Exceção para controle de fluxo', 'caro e ilegível: use `if`'],
           ] } },
         { h: 'Exceção customizada' },
         { code: `public class SaldoInsuficienteException extends RuntimeException {
@@ -144,7 +144,7 @@ catch (SQLException e) {
     public double getSaldoAtual() { return saldoAtual; }
     public double getDeficit()    { return valorSolicitado - saldoAtual; }
 }` },
-        { p: 'Boa exceção customizada carrega **dados estruturados** do erro, não só uma mensagem — quem captura consegue decidir o que fazer sem parsear texto.' },
+        { p: 'Boa exceção customizada carrega **dados estruturados** do erro, não só uma mensagem, para quem captura conseguir decidir o que fazer sem parsear texto.' },
       ],
       passos: [],
     },
@@ -208,7 +208,7 @@ public static <K, V> Map<V, K> inverter(Map<K, V> origem) {
     origem.forEach((k, v) -> destino.put(v, k));
     return destino;
 }` },
-        { nota: 'Um método genérico não exige que a classe seja genérica — é a forma mais comum de usar generics em utilitários estáticos.' },
+        { nota: 'Um método genérico não exige que a classe seja genérica, e essa é a forma mais comum de usar generics em utilitários estáticos.' },
       ],
       passos: [],
     },
@@ -219,21 +219,21 @@ public static <K, V> Map<V, K> inverter(Map<K, V> origem) {
       titulo: 'Wildcards, PECS e type erasure',
       icone: '🃏',
       modulo: 17,
-      resumo: 'Producer Extends, Consumer Super — e o que o compilador apaga antes de gerar bytecode.',
+      resumo: 'Producer Extends, Consumer Super, e o que o compilador apaga antes de gerar bytecode.',
       teoria: [
         { h: 'O problema' },
-        { p: '`List<Integer>` **não é** subtipo de `List<Number>`. Generics são invariantes — sem isso, você poderia inserir um `Double` numa lista de `Integer`.' },
+        { p: '`List<Integer>` **não é** subtipo de `List<Number>`. Generics são invariantes: sem isso, você poderia inserir um `Double` numa lista de `Integer`.' },
         { code: `List<Integer> inteiros = new ArrayList<>();
-List<Number> numeros = inteiros;   // não compila — e ainda bem` },
-        { h: '? extends T — produtor (leitura)' },
+List<Number> numeros = inteiros;   // não compila: e ainda bem` },
+        { h: '? extends T: produtor (leitura)' },
         { code: `// aceita List<Integer>, List<Double>, List<Number>...
 public double somar(List<? extends Number> numeros) {
     double total = 0;
     for (Number n : numeros) total += n.doubleValue();   // LER: ok
-    // numeros.add(1);   não compila — não sabemos o tipo exato
+    // numeros.add(1);   não compila: não sabemos o tipo exato
     return total;
 }` },
-        { h: '? super T — consumidor (escrita)' },
+        { h: '? super T: consumidor (escrita)' },
         { code: `// aceita List<Integer>, List<Number>, List<Object>
 public void preencher(List<? super Integer> destino) {
     destino.add(1);          // ESCREVER: ok
@@ -242,7 +242,7 @@ public void preencher(List<? super Integer> destino) {
 }` },
         { h: 'PECS' },
         { p: '**P**roducer **E**xtends, **C**onsumer **S**uper: se a coleção **produz** valores para você ler, use `extends`; se ela **consome** valores que você escreve, use `super`.' },
-        { code: `// assinatura real do JDK — os dois lados no mesmo método
+        { code: `// assinatura real do JDK: os dois lados no mesmo método
 public static <T> void copy(List<? super T> dest, List<? extends T> src) {
     for (T item : src) dest.add(item);     // src produz, dest consome
 }` },
@@ -255,17 +255,17 @@ public static <T> void copy(List<? super T> dest, List<? extends T> src) {
             ['`List<?>`', 'Object', 'não', 'só interessa o tamanho/estrutura'],
           ] } },
         { h: 'Type erasure' },
-        { p: 'Generics existem **só em tempo de compilação**. O compilador verifica os tipos, insere casts e depois **apaga** os parâmetros de tipo — o bytecode trabalha com `Object`.' },
+        { p: 'Generics existem **só em tempo de compilação**. O compilador verifica os tipos, insere casts e depois **apaga** os parâmetros de tipo: o bytecode trabalha com `Object`.' },
         { code: `List<String> a = new ArrayList<>();
 List<Integer> b = new ArrayList<>();
-a.getClass() == b.getClass();   // true — os dois são ArrayList
+a.getClass() == b.getClass();   // true: os dois são ArrayList
 
 // consequências
 if (lista instanceof List<String>) { }   // não compila
 T novo = new T();                        // não compila
 T[] array = new T[10];                   // não compila
 private static List<T> cache;            // não pode em contexto estático` },
-        { nota: 'Para contornar o erasure quando você realmente precisa do tipo em runtime, passe um `Class<T>` como parâmetro — é o padrão usado por frameworks como Jackson e Spring.' },
+        { nota: 'Para contornar o erasure quando você realmente precisa do tipo em runtime, passe um `Class<T>` como parâmetro: é o padrão usado por frameworks como Jackson e Spring.' },
       ],
       passos: [],
     },

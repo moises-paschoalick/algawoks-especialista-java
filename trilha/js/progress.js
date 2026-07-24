@@ -1,5 +1,5 @@
 /**
- * Progresso da trilha — XP, ofensiva (streak), conclusão e revisão espaçada.
+ * Progresso da trilha: XP, ofensiva (streak), conclusão e revisão espaçada.
  * Tudo em localStorage, nada de backend.
  */
 const Progress = (() => {

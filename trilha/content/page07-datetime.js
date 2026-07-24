@@ -1,4 +1,4 @@
-/* Unidade 6 — Date-Time API (docs/page_07.md · módulos 22, 23) */
+/* Unidade 6 · Date-Time API (docs/page_07.md · módulos 22, 23) */
 Trilha.add({
   numero: 6,
   titulo: 'Date-Time API',
@@ -16,11 +16,11 @@ Trilha.add({
       titulo: 'Qual classe usar em cada caso',
       icone: '🗺️',
       modulo: 23,
-      resumo: 'A API legada e por que java.time a substituiu — e o mapa de decisão.',
+      resumo: 'A API legada e por que java.time a substituiu, e o mapa de decisão.',
       teoria: [
         { h: 'Problemas da API legada' },
         { ul: [
-          '`Date` é **mutável** — qualquer código com a referência altera seu valor',
+          '`Date` é **mutável**: qualquer código com a referência altera seu valor',
           'Não é thread-safe; `SimpleDateFormat` corrompe dados sob concorrência',
           'Meses começam em **0** (janeiro = 0) e o ano de `Date` era 1900-based',
           '`Date` mistura data e hora mesmo quando você só quer uma das duas',
@@ -32,7 +32,7 @@ c.set(2024, 0, 15);        // janeiro é 0!
 Date d = c.getTime();
 d.setTime(0);              // mutável` },
         { h: 'java.time (Java 8+)' },
-        { p: 'Todas as classes são **imutáveis** e **thread-safe**. Toda operação devolve uma nova instância — a original nunca muda.' },
+        { p: 'Todas as classes são **imutáveis** e **thread-safe**. Toda operação devolve uma nova instância: a original nunca muda.' },
         { tabela: {
           head: ['Preciso de...', 'Classe', 'Exemplo'],
           rows: [
@@ -71,11 +71,11 @@ LocalTime almoco = LocalTime.of(12, 30);
 LocalDateTime reuniao = LocalDateTime.of(2024, 12, 25, 14, 30);
 LocalDateTime junto = natal.atTime(almoco);
 LocalDate soData = reuniao.toLocalDate();` },
-        { h: 'Operações — sempre devolvem nova instância' },
+        { h: 'Operações: sempre devolvem nova instância' },
         { code: `LocalDate d = LocalDate.of(2024, 1, 31);
 
 d.plusDays(10);      d.minusDays(10);
-d.plusMonths(1);     // 2024-02-29 — ajusta para o último dia válido
+d.plusMonths(1);     // 2024-02-29: ajusta para o último dia válido
 d.plusYears(1);      d.plusWeeks(2);
 
 d.withDayOfMonth(1);       // troca só o dia
@@ -85,7 +85,7 @@ d.withMonth(6);
 d.with(TemporalAdjusters.lastDayOfMonth());
 d.with(TemporalAdjusters.firstDayOfNextMonth());
 d.with(TemporalAdjusters.next(DayOfWeek.MONDAY));` },
-        { nota: 'Como tudo é imutável, `data.plusDays(1);` sozinho não faz nada — você precisa atribuir: `data = data.plusDays(1);`' },
+        { nota: 'Como tudo é imutável, `data.plusDays(1);` sozinho não faz nada. Você precisa atribuir: `data = data.plusDays(1);`' },
         { h: 'Consultas e comparações' },
         { code: `d.getDayOfWeek();        // DayOfWeek.WEDNESDAY
 d.getDayOfMonth();       d.getMonthValue();   d.getYear();
@@ -98,15 +98,15 @@ d.isBefore(outra);       d.isAfter(outra);    d.isEqual(outra);
 boolean fds = d.getDayOfWeek() == DayOfWeek.SATURDAY
            || d.getDayOfWeek() == DayOfWeek.SUNDAY;` },
         { h: 'Period vs Duration' },
-        { code: `// Period — baseado em DATAS (anos, meses, dias)
+        { code: `// Period: baseado em DATAS (anos, meses, dias)
 Period idade = Period.between(nascimento, LocalDate.now());
 idade.getYears(); idade.getMonths(); idade.getDays();
 
-// Duration — baseado em TEMPO (horas, minutos, segundos, nanos)
+// Duration: baseado em TEMPO (horas, minutos, segundos, nanos)
 Duration jornada = Duration.between(entrada, saida);
 jornada.toHours(); jornada.toMinutes(); jornada.getSeconds();
 
-// ChronoUnit — a diferença total em uma única unidade
+// ChronoUnit: a diferença total em uma única unidade
 long dias = ChronoUnit.DAYS.between(inicio, fim);
 long meses = ChronoUnit.MONTHS.between(inicio, fim);` },
         { p: '`Period.between` devolve **1 ano, 2 meses e 5 dias**. `ChronoUnit.DAYS.between` devolve **430 dias**. Escolha conforme a pergunta que você precisa responder.' },
@@ -154,7 +154,7 @@ ZonedDateTime outro = aqui.withZoneSameLocal(tokyo);  // MESMA hora no relógio
 Instant agora = Instant.now();
 ZonedDateTime local = agora.atZone(sp);
 Instant volta = local.toInstant();` },
-        { p: '`withZoneSameInstant` converte o horário (14h em SP → 2h do dia seguinte em Tóquio). `withZoneSameLocal` mantém 14h e só troca o fuso — quase sempre não é o que você quer.' },
+        { p: '`withZoneSameInstant` converte o horário (14h em SP → 2h do dia seguinte em Tóquio). `withZoneSameLocal` mantém 14h e só troca o fuso, o que quase nunca é o que você quer.' },
         { h: 'Ponte com a API legada' },
         { code: `// Date -> java.time
 Instant instant = date.toInstant();

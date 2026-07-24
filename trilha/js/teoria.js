@@ -68,7 +68,7 @@
       ${proxima  ? `<a class="direita" href="teoria.html?id=${proxima.id}"><small>próxima →</small><br>${proxima.titulo}</a>` : '<span></span>'}
     </nav>`;
 
-  document.title = `${licao.titulo} — Teoria`;
+  document.title = `${licao.titulo}: Teoria`;
 
   /* -------------------------------------------- realce do item em leitura */
 

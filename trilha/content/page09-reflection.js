@@ -1,4 +1,4 @@
-/* Unidade 9 — Reflection API e Anotações (docs/page_09.md · módulo 35) */
+/* Unidade 9 · Reflection API e Anotações (docs/page_09.md · módulo 35) */
 Trilha.add({
   numero: 9,
   titulo: 'Reflection e Anotações',
@@ -7,7 +7,7 @@ Trilha.add({
   prioridade: 'media',
   doc: 'docs/page_09.md',
   modulos: [35],
-  resumo: 'Como Spring, Jackson e JPA funcionam por dentro — inspecionar e manipular classes em tempo de execução.',
+  resumo: 'Como Spring, Jackson e JPA funcionam por dentro: inspecionar e manipular classes em tempo de execução.',
   licoes: [
 
     /* ------------------------------------------------------------------ */
@@ -16,10 +16,10 @@ Trilha.add({
       titulo: 'Inspecionando classes em runtime',
       icone: '🪞',
       modulo: 35,
-      resumo: 'Class, Field, Method e Constructor — a porta de entrada de todo framework Java.',
+      resumo: 'Class, Field, Method e Constructor: a porta de entrada de todo framework Java.',
       teoria: [
         { p: 'Reflection permite **inspecionar e manipular** classes, campos e métodos em tempo de execução, sem conhecê-los em tempo de compilação. É o que permite ao Spring instanciar seus beans e ao Jackson mapear seu JSON.' },
-        { h: 'Obtendo o objeto Class — 3 formas' },
+        { h: 'Obtendo o objeto Class: 3 formas' },
         { code: `Class<?> c1 = Cliente.class;                        // literal, em compilação
 Class<?> c2 = cliente.getClass();                   // a partir da instância
 Class<?> c3 = Class.forName("com.app.Cliente");     // pelo nome, em runtime
@@ -61,13 +61,13 @@ Object novo = vazio.newInstance();
 
 Constructor<?> comArgs = clazz.getDeclaredConstructor(String.class, int.class);
 Object outro = comArgs.newInstance("Ana", 30);` },
-        { nota: '`setAccessible(true)` desliga a checagem de visibilidade. É o que viabiliza os frameworks, mas em código de aplicação é sinal de design ruim — e a partir do Java 17 o encapsulamento forte de módulos pode bloquear isso em pacotes do JDK.' },
+        { nota: '`setAccessible(true)` desliga a checagem de visibilidade. É o que viabiliza os frameworks, mas em código de aplicação é sinal de design ruim, e a partir do Java 17 o encapsulamento forte de módulos pode bloquear isso em pacotes do JDK.' },
         { h: 'O preço' },
         { ul: [
-          '**Lento** — não há inline nem otimização do JIT como em chamada direta',
-          '**Sem segurança de tipo** — erro de nome de campo só aparece em runtime',
-          '**Frágil a refatoração** — renomear um campo não atualiza a String que o referencia',
-          '**Quebra encapsulamento** — acessa o que a classe escondeu de propósito',
+          '**Lento**: não há inline nem otimização do JIT como em chamada direta',
+          '**Sem segurança de tipo**: erro de nome de campo só aparece em runtime',
+          '**Frágil a refatoração**: renomear um campo não atualiza a String que o referencia',
+          '**Quebra encapsulamento**: acessa o que a classe escondeu de propósito',
         ] },
         { p: 'Use reflection para construir **infraestrutura genérica** (mapeadores, injetores, serializadores). Em regra de negócio, prefira polimorfismo.' },
       ],
@@ -80,7 +80,7 @@ Object outro = comArgs.newInstance("Ana", 30);` },
       titulo: 'Anotações customizadas',
       icone: '🏷️',
       modulo: 35,
-      resumo: 'Metadados que o seu código lê em runtime — @Target, @Retention e um caso real.',
+      resumo: 'Metadados que o seu código lê em runtime: @Target, @Retention e um caso real.',
       teoria: [
         { h: 'Estrutura' },
         { code: `@Target(ElementType.FIELD)              // onde pode ser aplicada
@@ -90,7 +90,7 @@ public @interface Coluna {
     boolean obrigatorio() default false; // com valor padrão
     int ordem() default 0;
 }` },
-        { h: '@Target — onde aplicar' },
+        { h: '@Target: onde aplicar' },
         { tabela: {
           head: ['ElementType', 'Aplica em'],
           rows: [
@@ -101,11 +101,11 @@ public @interface Coluna {
             ['`CONSTRUCTOR`', 'construtor'],
             ['`ANNOTATION_TYPE`', 'outra anotação (meta-anotação)'],
           ] } },
-        { h: '@Retention — o mais cobrado em entrevista' },
+        { h: '@Retention: o mais cobrado em entrevista' },
         { tabela: {
           head: ['Política', 'Sobrevive até', 'Uso'],
           rows: [
-            ['`SOURCE`', 'compilação — some do `.class`', '`@Override`, Lombok'],
+            ['`SOURCE`', 'compilação: some do `.class`', '`@Override`, Lombok'],
             ['`CLASS`', 'está no `.class`, some no carregamento', 'padrão; ferramentas de bytecode'],
             ['`RUNTIME`', 'disponível via reflection', 'Spring, JPA, Jackson'],
           ] } },

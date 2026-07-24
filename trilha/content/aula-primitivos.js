@@ -1,14 +1,14 @@
 /**
- * Aula guiada — Primitivos e conversões (módulo 2 · docs/page_06.md)
+ * Aula guiada · Primitivos e conversões (módulo 2 · docs/page_06.md)
  *
- * Arco: o tipo é uma GAVETA de tamanho fixo. Tudo decorre daí — o valor padrão,
+ * Arco: o tipo é uma GAVETA de tamanho fixo. Tudo decorre daí: o valor padrão,
  * o estouro, a promoção aritmética e o cast. O aluno vê a gaveta transbordar
  * antes de ouvir a palavra "overflow".
  */
 Aula.registrar({
   id: 'primitivos',
   licao: 'fund-primitivos',
-  titulo: 'Primitivos — a gaveta tem tamanho',
+  titulo: 'Primitivos: a gaveta tem tamanho',
   personagem: { nome: 'Bean' },
   fechamento: 'Tipo primitivo é gaveta de tamanho fixo. Sabendo isso, promoção e cast deixam de ser decoreba.',
 
@@ -18,7 +18,7 @@ Aula.registrar({
     {
       fala: [
         'Oi de novo! Aqui é o **Bean**.',
-        'Essa é a base de tudo em Java: os **8 tipos primitivos**. Parece básico — e é onde mais gente escorrega em entrevista.',
+        'Essa é a base de tudo em Java: os **8 tipos primitivos**. Parece básico, e é onde mais gente escorrega em entrevista.',
         'A ideia central é uma só: **um tipo é uma gaveta de tamanho fixo**.',
       ],
       palco(host, api) {
@@ -45,7 +45,7 @@ Aula.registrar({
     /* ------------------------------------------------------- 2 as gavetas */
     {
       fala: [
-        'Cada tipo inteiro tem um tamanho em bits — e é o tamanho que decide o quanto cabe.',
+        'Cada tipo inteiro tem um tamanho em bits, e é o tamanho que decide o quanto cabe.',
         'Toca em cada linha pra ver quanto cabe de verdade.',
       ],
       interativo: true,
@@ -131,13 +131,13 @@ Aula.registrar({
 <span class="neutro">Sem exceção. Sem aviso. O bit de sinal virou e o número ficou negativo.</span>`;
             api.reagir('alerta');
             e.target.disabled = true;
-            api.pronto('Estouro em Java é silencioso — por isso o tamanho importa');
+            api.pronto('Estouro em Java é silencioso, por isso o tamanho importa');
           } else {
             api.som('clique');
             api.gsap.fromTo(elValor, { scale: 1.25 }, { scale: 1, duration: 0.3 });
             saida.innerHTML = v === 127
-              ? `<span class="neutro">127 — chegou no limite. Clica mais uma vez.</span>`
-              : `<span class="neutro">${v} — ainda cabe.</span>`;
+              ? `<span class="neutro">127, chegou no limite. Clica mais uma vez.</span>`
+              : `<span class="neutro">${v}: ainda cabe.</span>`;
           }
         };
       },
@@ -173,7 +173,7 @@ Aula.registrar({
             const certo = escolha === correta;
             api.registrarResposta(certo);
             api.pronto(certo
-              ? 'Isso — e é por isso que valor monetário nunca vai em int'
+              ? 'Isso, e é por isso que valor monetário nunca vai em int'
               : 'É a C: overflow em Java é silencioso, não lança nada');
           };
         });
@@ -184,7 +184,7 @@ Aula.registrar({
     {
       fala: [
         'Agora um detalhe que derruba gente boa: o **literal** também tem tipo.',
-        'Todo número inteiro escrito no código nasce `int` — mesmo que você vá guardar num `long`.',
+        'Todo número inteiro escrito no código nasce `int`: mesmo que você vá guardar num `long`.',
         'Escolhe qual das duas linhas compila.',
       ],
       interativo: true,
@@ -208,7 +208,7 @@ Aula.registrar({
             });
             saida.style.display = 'block';
             saida.innerHTML = `<span class="erro">long a = 8000000000;    ERRO: integer number too large</span>
-<span class="ok">long b = 8000000000L;   OK — o L cria o literal já como long</span>
+<span class="ok">long b = 8000000000L;   OK: o L cria o literal já como long</span>
 <span class="neutro">O compilador avalia o literal ANTES de atribuir. Sem o L, 8 bilhões
 não cabe em int e nem chega a ser convertido.</span>`;
             api.gsap.from(saida, { y: 10, opacity: 0, duration: 0.3 });
@@ -258,7 +258,7 @@ não cabe em int e nem chega a ser convertido.</span>`;
 promove os operandos para int antes de calcular.</span>
 
 <span class="erro">byte c = a + b;        ERRO: a + b é int, e int não cabe em byte</span>
-<span class="ok">byte c = (byte)(a + b);  OK — cast explícito</span>
+<span class="ok">byte c = (byte)(a + b);  OK: cast explícito</span>
 <span class="neutro">Repara: 30 CABERIA em byte. O compilador reclama do TIPO da
 expressão, não do valor.</span>`;
               api.gsap.from(saida, { y: 12, opacity: 0, duration: 0.35 });
@@ -273,7 +273,7 @@ expressão, não do valor.</span>`;
     /* ----------------------------------------------- 7 widening x narrowing */
     {
       fala: [
-        'Converter entre tipos tem duas direções — e só uma é automática.',
+        'Converter entre tipos tem duas direções, e só uma é automática.',
         'Toca nas setas pra ver cada uma.',
       ],
       interativo: true,
@@ -291,13 +291,13 @@ expressão, não do valor.</span>`;
         const vistos = new Set();
         const textos = {
           up: `<span class="ok">int i = 100;
-long l = i;        // AUTOMÁTICO — cabe folgado, nada se perde
+long l = i;        // AUTOMÁTICO: cabe folgado, nada se perde
 double d = l;      // AUTOMÁTICO</span>
 <span class="neutro">Gaveta menor entrando na maior: sempre seguro.</span>`,
           down: `<span class="erro">long l = 100L;
-int i = l;         // NÃO COMPILA — pode não caber</span>
+int i = l;         // NÃO COMPILA: pode não caber</span>
 <span class="ok">int i = (int) l;   // cast explícito: você assume o risco
-int x = (int) 3.99;  // 3 — trunca, não arredonda</span>
+int x = (int) 3.99;  // 3: trunca, não arredonda</span>
 <span class="neutro">Gaveta maior entrando na menor: o compilador exige que você
 assine embaixo com o cast.</span>`,
         };
@@ -310,7 +310,7 @@ assine embaixo com o cast.</span>`,
             saida.innerHTML = textos[chip.dataset.d];
             api.gsap.from(saida, { opacity: 0, y: 8, duration: 0.3 });
             vistos.add(chip.dataset.d);
-            if (vistos.size === 2) api.pronto('Subir é de graça. Descer custa um cast — e pode perder dado');
+            if (vistos.size === 2) api.pronto('Subir é de graça. Descer custa um cast, e pode perder dado');
           };
         });
       },
@@ -342,7 +342,7 @@ System.out.println((double) total / divisor);`)}
           saida.innerHTML = '';
 
           const linhas = [
-            ['3',   'int / int = int — o 0.5 é DESCARTADO, não arredondado'],
+            ['3',   'int / int = int: o 0.5 é DESCARTADO, não arredondado'],
             ['1',   '% devolve o resto da divisão'],
             ['3.5', 'basta UM operando double para a expressão virar double'],
           ];
@@ -394,10 +394,10 @@ System.out.println(a / b * 2.0);`)}
             saida.style.display = 'block';
             saida.innerHTML = `<span class="neutro">A avaliação é da esquerda para a direita:</span>
 <span class="erro">a / b   →  5 / 2  →  2   </span><span class="neutro">// int / int, perde o 0.5 AQUI</span>
-<span class="ok">2 * 2.0 →  4.0        </span><span class="neutro">// só agora vira double — tarde demais</span>`;
+<span class="ok">2 * 2.0 →  4.0        </span><span class="neutro">// só agora vira double: tarde demais</span>`;
             api.registrarResposta(escolha === correta);
             api.pronto(escolha === correta
-              ? 'Perfeito — o dano acontece antes do double entrar'
+              ? 'Perfeito: o dano acontece antes do double entrar'
               : 'É 4.0: a divisão inteira já tinha jogado o 0.5 fora');
           };
         });

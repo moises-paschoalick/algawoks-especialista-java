@@ -1,5 +1,5 @@
 /**
- * Efeitos sonoros sintetizados na Web Audio API — nenhum arquivo de áudio.
+ * Efeitos sonoros sintetizados na Web Audio API: nenhum arquivo de áudio.
  * Sem trilha de fundo: só reação a evento (acerto, erro, clique, conclusão).
  * O AudioContext só nasce no primeiro gesto do usuário (política dos navegadores).
  */
@@ -41,7 +41,7 @@ const Som = (() => {
     osc.stop(t0 + dur + 0.02);
   }
 
-  /** Ruído curto — usado no "barrado", que precisa soar físico. */
+  /** Ruído curto: usado no "barrado", que precisa soar físico. */
   function ruido({ dur = 0.12, vol = 0.12, corte = 900 }) {
     const ac = contexto();
     if (!ac) return;
@@ -76,7 +76,7 @@ const Som = (() => {
         nota({ freq: f, dur: 0.18, tipo: 'triangle', vol: 0.15, atraso: i * 0.07 }));
     },
 
-    // dois tons descendentes, sem estridência — erro não precisa punir
+    // dois tons descendentes, sem estridência: erro não precisa punir
     erro:    () => {
       nota({ freq: 233.08, dur: 0.16, tipo: 'sawtooth', vol: 0.1 });
       nota({ freq: 174.61, dur: 0.26, tipo: 'sawtooth', vol: 0.1, atraso: 0.12 });

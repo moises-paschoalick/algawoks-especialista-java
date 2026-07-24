@@ -1,6 +1,6 @@
 /**
  * Motor da aula guiada: personagem narra, o palco anima, o aluno interage.
- * O conteúdo (roteiro) fica em content/aula-*.js — cada cena traz sua fala,
+ * O conteúdo (roteiro) fica em content/aula-*.js: cada cena traz sua fala,
  * sua função de palco e o tipo de interação que libera o avanço.
  */
 const Aula = (() => {
@@ -32,13 +32,13 @@ const Aula = (() => {
 
     /* ------------------------------------------------------- personagem */
 
-    // respiração contínua — o personagem nunca fica totalmente parado
+    // respiração contínua: o personagem nunca fica totalmente parado
     gsap.to(personagem, { y: -6, duration: 1.6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
     gsap.to(personagem.querySelectorAll('.vapor path'), {
       y: -10, opacity: 0, duration: 2, repeat: -1, stagger: 0.5, ease: 'sine.out',
     });
 
-    // piscada em intervalo irregular — o olhar fixo demais fica estranho
+    // piscada em intervalo irregular: o olhar fixo demais fica estranho
     (function piscar() {
       gsap.to(personagem.querySelectorAll('.pupila'), {
         scaleY: 0.08, transformOrigin: 'center', duration: 0.07, yoyo: true, repeat: 1,
@@ -46,7 +46,7 @@ const Aula = (() => {
       });
     })();
 
-    // cada emoção redesenha boca e sobrancelhas — o rosto é o feedback principal
+    // cada emoção redesenha boca e sobrancelhas: o rosto é o feedback principal
     const ROSTO = {
       normal:  { boca: 'M56 92 Q70 105 84 92',  sobEsq: 'M36 42 q10 -6 20 -1',  sobDir: 'M84 41 q10 -5 20 1',  blush: 0.32 },
       feliz:   { boca: 'M52 88 Q70 114 88 88',  sobEsq: 'M36 38 q10 -8 20 -2',  sobDir: 'M84 36 q10 -6 20 2',  blush: 0.5  },
@@ -160,7 +160,7 @@ const Aula = (() => {
       if (atual > 0) Som.tocar('passo');
       document.querySelector('.palco-scroll').scrollTop = 0;
 
-      // troca de palco com fade — nunca corta seco
+      // troca de palco com fade: nunca corta seco
       gsap.to(elPalco, {
         opacity: 0, y: 10, duration: 0.18,
         onComplete: () => {
@@ -194,7 +194,7 @@ const Aula = (() => {
         <div class="finish" style="padding:20px 0">
           <div class="finish-emoji">🎉</div>
           <h1>Aula concluída!</h1>
-          <p>${roteiro.fechamento || 'Agora o conteúdo está fresco — hora de praticar.'}</p>
+          <p>${roteiro.fechamento || 'Agora o conteúdo está fresco: hora de praticar.'}</p>
           <div class="finish-stats">
             <div class="finish-stat"><div class="v" style="color:var(--gold)">+${xp}</div><div class="k">XP</div></div>
             <div class="finish-stat"><div class="v" style="color:var(--green)">${acertos}/${avaliados}</div><div class="k">Acertos</div></div>
@@ -208,7 +208,7 @@ const Aula = (() => {
           </div>
         </div>`;
       gsap.from('#palco .finish > *', { y: 24, opacity: 0, duration: 0.5, stagger: 0.09, ease: 'power2.out' });
-      falar(['Boa! Você chegou até o fim. Isso aqui não é decoreba — você viu o problema antes da solução, que é como isso gruda.']);
+      falar(['Boa! Você chegou até o fim. Isso aqui não é decoreba: você viu o problema antes da solução, que é como isso gruda.']);
       btn.style.display = 'none';
     }
 

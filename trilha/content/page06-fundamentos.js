@@ -1,4 +1,4 @@
-/* Unidade 1 — Fundamentos da Linguagem (docs/page_06.md · módulos 2, 3, 7, 9, 20) */
+/* Unidade 1 · Fundamentos da Linguagem (docs/page_06.md · módulos 2, 3, 7, 9, 20) */
 Trilha.add({
   numero: 1,
   titulo: 'Fundamentos da Linguagem',
@@ -29,7 +29,7 @@ Trilha.add({
             ['`long`', '64 bits', '0L', 'muito grande'],
             ['`float`', '32 bits', '0.0f', 'decimal, precisão simples'],
             ['`double`', '64 bits', '0.0d', 'decimal, precisão dupla'],
-            ['`boolean`', '—', 'false', 'true / false'],
+            ['`boolean`', 'n/a', 'false', 'true / false'],
             ['`char`', '16 bits', "'\\u0000'", 'um caractere Unicode'],
           ] } },
         { h: 'Sufixos de literais' },
@@ -46,7 +46,7 @@ byte d = (byte)(a + b);  // OK: cast explícito (narrowing)
 
 int i = 5;
 double dd = i;           // widening: automático e seguro
-int j = (int) 3.99;      // narrowing: 3 — a parte decimal é descartada` },
+int j = (int) 3.99;      // narrowing: 3: a parte decimal é descartada` },
         { nota: 'Widening (menor → maior) é automático. Narrowing (maior → menor) exige cast e pode perder dados.' },
       ],
       passos: [
@@ -62,7 +62,7 @@ byte c = a + b;`,
             'A soma estoura o limite de `byte` (127)',
           ],
           correta: 1,
-          explicacao: 'Promoção aritmética: operandos menores que int viram int. 30 caberia em byte, mas o tipo da expressão é int — o compilador reclama do tipo, não do valor.' },
+          explicacao: 'Promoção aritmética: operandos menores que int viram int. 30 caberia em byte, mas o tipo da expressão é int, e o compilador reclama do tipo, não do valor.' },
 
         { tipo: 'completar',
           enunciado: 'Complete para o código compilar',
@@ -83,18 +83,18 @@ System.out.println((double) total / divisor);` },
           ] },
           verso: [
             { p: '**3**, **1** e **3.5**' },
-            { p: 'Divisão entre dois `int` é divisão inteira — o resto é descartado. `%` devolve o resto. O cast em um dos operandos promove a expressão inteira para `double`.' },
+            { p: 'Divisão entre dois `int` é divisão inteira: o resto é descartado. `%` devolve o resto. O cast em um dos operandos promove a expressão inteira para `double`.' },
           ] },
 
         { tipo: 'qa',
           pergunta: 'Qual a diferença entre widening e narrowing? Quando cada um exige cast?',
           resposta: [
-            { p: '**Widening** (alargamento) vai de um tipo menor para um maior — `byte → short → int → long → float → double`. É automático porque não há perda de dados.' },
+            { p: '**Widening** (alargamento) vai de um tipo menor para um maior: `byte → short → int → long → float → double`. É automático porque não há perda de dados.' },
             { p: '**Narrowing** (estreitamento) vai do maior para o menor. Exige **cast explícito** porque pode truncar valor ou precisão.' },
             { code: `int i = 100;
 long l = i;        // widening automático
 int volta = (int) l;   // narrowing: cast obrigatório
-int truncado = (int) 3.99;  // 3 — perde a parte decimal` },
+int truncado = (int) 3.99;  // 3: perde a parte decimal` },
           ] },
       ],
     },
@@ -105,27 +105,28 @@ int truncado = (int) 3.99;  // 3 — perde a parte decimal` },
       titulo: 'Wrappers, boxing e o cache do Integer',
       icone: '📦',
       modulo: 7,
+      aula: 'wrappers',        // aula guiada interativa em aula.html?id=wrappers
       ancora: '#3-wrappers-e-boxing',
       teoria: [
-        { p: 'Cada primitivo tem uma classe **wrapper** correspondente: `int → Integer`, `double → Double`, `char → Character`, `boolean → Boolean`. Wrappers são objetos — vivem na heap e podem ser `null`.' },
+        { p: 'Cada primitivo tem uma classe **wrapper** correspondente: `int → Integer`, `double → Double`, `char → Character`, `boolean → Boolean`. Wrappers são objetos: vivem na heap e podem ser `null`.' },
         { h: 'Autoboxing e unboxing' },
         { code: `Integer objeto = 10;      // autoboxing: int -> Integer
 int primitivo = objeto;   // unboxing: Integer -> int
 
 List<Integer> numeros = new ArrayList<>();
-numeros.add(42);          // autoboxing implícito — coleções só guardam objetos` },
+numeros.add(42);          // autoboxing implícito: coleções só guardam objetos` },
         { h: 'A armadilha do cache' },
         { p: 'A JVM mantém em cache os objetos `Integer` de **-128 a 127**. Dentro dessa faixa, dois autoboxings do mesmo valor devolvem a **mesma referência**; fora dela, objetos diferentes.' },
         { code: `Integer a = 127, b = 127;
-System.out.println(a == b);       // true  — mesmo objeto do cache
+System.out.println(a == b);       // true: mesmo objeto do cache
 
 Integer c = 128, d = 128;
-System.out.println(c == d);       // false — objetos diferentes!
-System.out.println(c.equals(d));  // true  — comparação por valor` },
+System.out.println(c == d);       // false: objetos diferentes!
+System.out.println(c.equals(d));  // true: comparação por valor` },
         { nota: 'Regra prática: nunca compare wrappers com `==`. Use `equals()`, ou trabalhe com primitivos.' },
         { h: 'NullPointerException silencioso' },
         { code: `Integer valor = null;
-int x = valor;   // NPE no unboxing — não no acesso a método` },
+int x = valor;   // NPE no unboxing: não no acesso a método` },
       ],
       passos: [
         { tipo: 'quiz',
@@ -149,7 +150,7 @@ int total = quantidade + 1;`,
             '`total` fica com o valor padrão 0',
           ],
           correta: 2,
-          explicacao: 'Para somar, o compilador insere quantidade.intValue() — chamar um método em null lança NPE. É a causa mais comum de NPE "invisível" em Java.' },
+          explicacao: 'Para somar, o compilador insere quantidade.intValue(): chamar um método em null lança NPE. É a causa mais comum de NPE "invisível" em Java.' },
 
         { tipo: 'flashcard',
           frente: { titulo: 'Métodos de wrapper que caem em entrevista', blocos: [
@@ -167,7 +168,7 @@ String bin = Integer.toBinaryString(10); // "1010"` },
           pergunta: 'Quando usar wrapper em vez de primitivo?',
           resposta: [
             { ul: [
-              'Em **coleções e generics** — `List<int>` não existe, só `List<Integer>`.',
+              'Em **coleções e generics**: `List<int>` não existe, só `List<Integer>`.',
               'Quando o campo pode ser **ausente**: `Integer desconto = null` distingue "sem desconto" de "desconto zero".',
               'Quando precisa dos **métodos utilitários** (`parseInt`, `compare`, `MAX_VALUE`).',
             ] },
@@ -182,18 +183,19 @@ String bin = Integer.toBinaryString(10); // "1010"` },
       titulo: 'String, pool e StringBuilder',
       icone: '🧵',
       modulo: 20,
+      aula: 'strings',         // aula guiada interativa em aula.html?id=strings
       ancora: '#4-strings',
       teoria: [
         { p: 'String é **imutável**. Toda operação que "modifica" uma String na verdade cria um objeto novo.' },
         { h: 'String Pool' },
         { code: `String a = "Java";
 String b = "Java";
-System.out.println(a == b);        // true — mesmo objeto no pool
+System.out.println(a == b);        // true: mesmo objeto no pool
 
 String c = new String("Java");
-System.out.println(a == c);        // false — new força objeto fora do pool
-System.out.println(a.equals(c));   // true  — mesmo conteúdo` },
-        { nota: 'Compare Strings sempre com `equals()` (ou `equalsIgnoreCase`). `==` só coincide por causa do pool — e falha assim que a String vier de input, banco ou concatenação em runtime.' },
+System.out.println(a == c);        // false: new força objeto fora do pool
+System.out.println(a.equals(c));   // true: mesmo conteúdo` },
+        { nota: 'Compare Strings sempre com `equals()` (ou `equalsIgnoreCase`). `==` só coincide por causa do pool, e falha assim que a String vier de input, banco ou concatenação em runtime.' },
         { h: 'Métodos essenciais' },
         { code: `String texto = "  Java Especialista  ";
 texto.trim();                 // remove espaços das pontas
@@ -219,7 +221,7 @@ String out2 = sb.toString();` },
           rows: [
             ['`String`', 'não', 'sim', 'padrão'],
             ['`StringBuilder`', 'sim', 'não', 'concatenação em loop'],
-            ['`StringBuffer`', 'sim', 'sim', 'raro — só multithread'],
+            ['`StringBuffer`', 'sim', 'sim', 'raro, só multithread'],
           ] } },
       ],
       passos: [
@@ -242,7 +244,7 @@ for (String parte : partes) {
 String resultado = sb.___();`,
           respostas: [['StringBuilder'], ['append'], ['toString']],
           dica: 'O buffer mutável é montado com append e fechado com toString.',
-          explicacao: 'Com String + em loop você aloca um objeto por iteração — O(n²) de cópia. StringBuilder reaproveita o mesmo array interno.' },
+          explicacao: 'Com String + em loop você aloca um objeto por iteração: O(n²) de cópia. StringBuilder reaproveita o mesmo array interno.' },
 
         { tipo: 'codigo',
           enunciado: 'Inverta uma frase palavra por palavra',
@@ -285,7 +287,7 @@ String resultado = sb.___();`,
             { ul: [
               '**String Pool**: só é possível compartilhar o mesmo objeto entre variáveis porque ninguém pode alterá-lo.',
               '**Thread-safety grátis**: imutável nunca tem estado corrompido por concorrência.',
-              '**hashCode em cache**: como o conteúdo não muda, o hash é calculado uma vez — por isso String é chave ideal de `HashMap`.',
+              '**hashCode em cache**: como o conteúdo não muda, o hash é calculado uma vez, por isso String é chave ideal de `HashMap`.',
               '**Segurança**: caminhos de arquivo, URLs e credenciais passados como String não podem ser alterados depois da validação.',
             ] },
           ] },
@@ -301,7 +303,7 @@ String resultado = sb.___();`,
       ancora: '#5-controle-de-fluxo',
       teoria: [
         { h: 'Switch clássico vs moderno' },
-        { code: `// clássico — precisa de break, tem fall-through
+        { code: `// clássico: precisa de break, tem fall-through
 switch (dia) {
     case 1:
     case 2:
@@ -311,7 +313,7 @@ switch (dia) {
         tipo = "Fim de semana";
 }
 
-// moderno (Java 14+) — sem break, pode ser expressão
+// moderno (Java 14+): sem break, pode ser expressão
 String tipo = switch (dia) {
     case 1, 2, 3, 4, 5 -> "Dia util";
     case 6, 7          -> "Fim de semana";
@@ -401,7 +403,7 @@ switch (x) {
     Cliente c = new Cliente(nome, idade);// objeto na HEAP, referência na STACK
 }   // ao sair, as referências somem; o objeto Cliente vira lixo coletável` },
         { h: 'Garbage Collector' },
-        { p: 'O GC libera automaticamente objetos **sem nenhuma referência ativa**. Você não controla quando ele roda — `System.gc()` é apenas uma sugestão que a JVM pode ignorar.' },
+        { p: 'O GC libera automaticamente objetos **sem nenhuma referência ativa**. Você não controla quando ele roda. `System.gc()` é apenas uma sugestão que a JVM pode ignorar.' },
         { code: `Cliente c = new Cliente("Ana");
 c = null;          // o objeto ficou sem referência: elegível para coleta
 
@@ -434,9 +436,9 @@ lista.clear();     // o Cliente perdeu a única referência: elegível` },
               'A referência recebeu `null`',
               'A referência saiu de escopo (o método terminou)',
               'A referência passou a apontar para outro objeto',
-              'O objeto só é referenciado por outros objetos que também viraram lixo (ilhas de isolamento — o GC detecta)',
+              'O objeto só é referenciado por outros objetos que também viraram lixo (ilhas de isolamento: o GC detecta)',
             ] },
-            { p: 'Você **não controla** o momento da coleta. `System.gc()` é uma sugestão, e `finalize()` está depreciado — para liberar recursos use `try-with-resources`.' },
+            { p: 'Você **não controla** o momento da coleta. `System.gc()` é uma sugestão, e `finalize()` está depreciado, então para liberar recursos use `try-with-resources`.' },
           ] },
 
         { tipo: 'flashcard',
@@ -444,9 +446,9 @@ lista.clear();     // o Cliente perdeu a única referência: elegível` },
             { p: 'O que causa cada um?' },
           ] },
           verso: [
-            { p: '**StackOverflowError** — a stack de uma thread estourou. Causa quase sempre: recursão sem condição de parada.' },
+            { p: '**StackOverflowError**: a stack de uma thread estourou. Causa quase sempre: recursão sem condição de parada.' },
             { code: `void loop() { loop(); }   // StackOverflowError` },
-            { p: '**OutOfMemoryError** — a heap acabou. Causa: objetos demais vivos ao mesmo tempo ou vazamento de memória (coleção estática que só cresce).' },
+            { p: '**OutOfMemoryError**: a heap acabou. Causa: objetos demais vivos ao mesmo tempo ou vazamento de memória (coleção estática que só cresce).' },
           ] },
       ],
     },

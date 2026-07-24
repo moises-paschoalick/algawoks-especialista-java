@@ -4,7 +4,7 @@
 #
 #   ./build.sh [diretorio-de-saida]
 #
-# O bundle é o próprio conteúdo de trilha/ — não há transpilação nem minificação,
+# O bundle é o próprio conteúdo de trilha/: não há transpilação nem minificação,
 # só cópia e dois ajustes: a base dos links para docs/ (que não existem no
 # repositório estático) e o .nojekyll (o Jekyll do Pages ignora pastas com _).
 

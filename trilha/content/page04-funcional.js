@@ -1,4 +1,4 @@
-/* Unidade 5 — Programação Funcional (docs/page_04.md · módulos 25, 26, 27) */
+/* Unidade 5 · Programação Funcional (docs/page_04.md · módulos 25, 26, 27) */
 Trilha.add({
   numero: 5,
   titulo: 'Programação Funcional',
@@ -7,7 +7,7 @@ Trilha.add({
   prioridade: 'alta',
   doc: 'docs/page_04.md',
   modulos: [25, 26, 27],
-  resumo: 'Lambdas, o pipeline de Streams e o uso correto de Optional — o bloco mais cobrado em entrevista.',
+  resumo: 'Lambdas, o pipeline de Streams e o uso correto de Optional: o bloco mais cobrado em entrevista.',
   licoes: [
 
     /* ------------------------------------------------------------------ */
@@ -24,12 +24,12 @@ public interface Calculadora {
     double calcular(double a, double b);
 }
 
-// classe anônima — Java 7
+// classe anônima: Java 7
 Calculadora soma = new Calculadora() {
     @Override public double calcular(double a, double b) { return a + b; }
 };
 
-// lambda — Java 8+
+// lambda: Java 8+
 Calculadora soma = (a, b) -> a + b;` },
         { h: 'Sintaxe' },
         { code: `() -> System.out.println("oi")           // sem parâmetro
@@ -60,12 +60,12 @@ Supplier<List<String>> nova = ArrayList::new;
 // composição
 Function<Integer, Integer> dobrar = x -> x * 2;
 Function<Integer, Integer> somarUm = x -> x + 1;
-dobrar.andThen(somarUm).apply(5);   // 11 — dobra, depois soma
-dobrar.compose(somarUm).apply(5);   // 12 — soma, depois dobra
+dobrar.andThen(somarUm).apply(5);   // 11: dobra, depois soma
+dobrar.compose(somarUm).apply(5);   // 12: soma, depois dobra
 
 Predicate<String> naoVazio = vazio.negate();
 Predicate<String> valido = naoVazio.and(s -> s.length() < 50);` },
-        { h: 'Method references — as 4 formas' },
+        { h: 'Method references: as 4 formas' },
         { code: `// 1. método estático
 Function<String, Integer> f1 = Integer::parseInt;        // s -> Integer.parseInt(s)
 
@@ -78,7 +78,7 @@ Function<String, String> f3 = String::toUpperCase;       // s -> s.toUpperCase()
 // 4. construtor
 Supplier<ArrayList<String>> f4 = ArrayList::new;         // () -> new ArrayList<>()
 Function<String, Produto> f5 = Produto::new;             // s -> new Produto(s)` },
-        { nota: 'Lambda só captura variáveis **efetivamente finais** — que não são reatribuídas depois de inicializadas. Por isso não dá para incrementar um contador local dentro de uma lambda.' },
+        { nota: 'Lambda só captura variáveis **efetivamente finais**: que não são reatribuídas depois de inicializadas. Por isso não dá para incrementar um contador local dentro de uma lambda.' },
       ],
       passos: [],
     },
@@ -96,7 +96,7 @@ Function<String, Produto> f5 = Produto::new;             // s -> new Produto(s)`
     .map(Produto::getNome)                         //    (lazy)
     .sorted()                                      //    (lazy)
     .toList();                                     // 3. TERMINAL (dispara tudo)` },
-        { p: 'Nada roda até a operação terminal. Sem ela, o pipeline inteiro é ignorado — bug clássico de quem monta um stream e esquece o `collect`.' },
+        { p: 'Nada roda até a operação terminal. Sem ela, o pipeline inteiro é ignorado, bug clássico de quem monta um stream e esquece o `collect`.' },
         { h: 'Operações intermediárias' },
         { code: `.filter(p -> p.ativo())              // seleciona
 .map(Produto::getNome)               // transforma 1 → 1
@@ -105,7 +105,7 @@ Function<String, Produto> f5 = Produto::new;             // s -> new Produto(s)`
 .sorted(Comparator.comparing(...))   // ordena
 .limit(10)                           // pega os N primeiros (curto-circuito)
 .skip(5)                             // pula os N primeiros
-.peek(System.out::println)           // espia — só para depuração` },
+.peek(System.out::println)           // espia: só para depuração` },
         { h: 'map vs flatMap' },
         { code: `// map: cada pedido vira uma lista → Stream<List<Item>>
 Stream<List<Item>> a = pedidos.stream().map(Pedido::getItens);
@@ -123,7 +123,7 @@ List<Item> todos = pedidos.stream()
 .allMatch(Produto::ativo)
 .noneMatch(Produto::vencido)
 .findFirst()                          // Optional
-.findAny()                            // Optional — útil em paralelo
+.findAny()                            // Optional: útil em paralelo
 .min(Comparator.comparing(Produto::getPreco))   // Optional
 .max(...)` },
         { h: 'reduce' },
@@ -159,7 +159,7 @@ String nomes = produtos.stream()
     .map(Produto::getNome)
     .collect(Collectors.joining(", ", "[", "]"));
 
-// para Map — cuidado com chave duplicada
+// para Map: cuidado com chave duplicada
 Map<String, Double> precos = produtos.stream()
     .collect(Collectors.toMap(Produto::getNome, Produto::getPreco,
                               (antigo, novo) -> novo));   // resolve conflito` },
@@ -174,7 +174,7 @@ stats.getMax(); stats.getMin(); stats.getAverage(); stats.getSum();
 
 IntStream.range(0, 5);        // 0,1,2,3,4
 IntStream.rangeClosed(1, 5);  // 1,2,3,4,5` },
-        { nota: 'Um stream é de **uso único**: depois da operação terminal ele está consumido. Reutilizar lança `IllegalStateException`. E evite `parallelStream()` sem medir — para coleções pequenas ele quase sempre piora.' },
+        { nota: 'Um stream é de **uso único**: depois da operação terminal ele está consumido. Reutilizar lança `IllegalStateException`. E evite `parallelStream()` sem medir: para coleções pequenas ele quase sempre piora.' },
       ],
       passos: [],
     },
@@ -185,14 +185,14 @@ IntStream.rangeClosed(1, 5);  // 1,2,3,4,5` },
       titulo: 'Optional sem gambiarra',
       icone: '🎁',
       modulo: 26,
-      resumo: 'Optional existe para eliminar o if de null — não para trocá-lo por isPresent().',
+      resumo: 'Optional existe para eliminar o if de null, não para trocá-lo por isPresent().',
       teoria: [
         { p: '`Optional<T>` é um contêiner que **pode ou não** conter valor. Serve como **tipo de retorno** para deixar explícito que a ausência é um resultado válido.' },
         { h: 'Criação' },
         { code: `Optional<String> a = Optional.of("valor");        // NPE se for null
 Optional<String> b = Optional.ofNullable(pode);   // aceita null
 Optional<String> c = Optional.empty();` },
-        { h: 'Consumo — do mais seguro ao menos' },
+        { h: 'Consumo: do mais seguro ao menos' },
         { code: `// valor padrão pronto
 String nome = optional.orElse("Desconhecido");
 
@@ -230,7 +230,7 @@ Optional<Cliente> ativo = buscarCliente(id).filter(Cliente::isAtivo);` },
             ['`Optional<List<T>>`', 'devolva lista vazia'],
             ['`o.orElse(null)`', 'assuma o Optional até o fim'],
           ] } },
-        { code: `// ruim — só trocou o if de null por outro if
+        { code: `// ruim: só trocou o if de null por outro if
 Optional<Cliente> opt = buscar(id);
 if (opt.isPresent()) {
     System.out.println(opt.get().getNome());
@@ -238,7 +238,7 @@ if (opt.isPresent()) {
 
 // bom
 buscar(id).map(Cliente::getNome).ifPresent(System.out::println);` },
-        { p: 'Regra geral: `Optional` é para **retorno**. Coleção vazia já expressa ausência — nunca devolva `Optional<List<T>>`.' },
+        { p: 'Regra geral: `Optional` é para **retorno**. Coleção vazia já expressa ausência, então nunca devolva `Optional<List<T>>`.' },
       ],
       passos: [],
     },

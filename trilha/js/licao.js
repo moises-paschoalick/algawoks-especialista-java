@@ -88,8 +88,7 @@
           <div class="modref-icon">📖</div>
           <div class="modref-body">
             <b>Página de teoria</b>
-            <a href="teoria.html?id=${licao.id}">Abrir a versão de leitura</a>
-            — mesmo conteúdo, com índice e navegação entre temas.
+            <a href="teoria.html?id=${licao.id}">Abrir a versão de leitura</a>: mesmo conteúdo, com índice e navegação entre temas.
           </div>
         </div>
         <div class="teoria">${corpo(licao.teoria)}</div>`;
@@ -130,7 +129,7 @@
             extra: `<button class="btn btn-ghost" id="btnErrei">😕 Preciso revisar</button>`,
           });
           document.getElementById('btnErrei').onclick = () => {
-            marcar(false, 'Anotado — esta volta na revisão.');
+            marcar(false, 'Anotado: esta volta na revisão.');
             setTimeout(avancar, 250);
           };
         },
@@ -223,7 +222,7 @@
       stage.innerHTML = `
         ${cabecalho('qa', p.pergunta)}
         ${p.codigo ? `<pre class="code">${realce(p.codigo)}</pre>` : ''}
-        <div class="step-sub">Responda como responderia numa entrevista — em voz alta ou escrevendo aqui.</div>
+        <div class="step-sub">Responda como responderia numa entrevista: em voz alta ou escrevendo aqui.</div>
         <textarea class="answer" id="resposta" placeholder="Sua resposta..."></textarea>
         <div id="gabarito"></div>`;
 
@@ -239,11 +238,11 @@
           pe({
             msg: 'Quão perto você chegou?',
             botao: '😀 Acertei',
-            acao: () => { marcar(true, 'Ótimo — isso já está firme.'); setTimeout(avancar, 250); },
+            acao: () => { marcar(true, 'Ótimo: isso já está firme.'); setTimeout(avancar, 250); },
             extra: `<button class="btn btn-ghost" id="btnQuase">😕 Faltou coisa</button>`,
           });
           document.getElementById('btnQuase').onclick = () => {
-            marcar(false, 'Sem problema — volta na revisão.');
+            marcar(false, 'Sem problema: volta na revisão.');
             setTimeout(avancar, 250);
           };
         },
@@ -264,7 +263,7 @@
             <div class="check idle"><span class="check-icon">○</span><span>${inline(t.desc)}</span></div>`).join('')}
         </div>
         <div class="note">
-          A verificação é estática — analisa o que você escreveu, sem compilar Java.
+          A verificação é estática: analisa o que você escreveu, sem compilar Java.
           Serve para cobrar a construção certa, não para rodar o programa.
         </div>
         <div id="solucaoBox"></div>`;
@@ -318,7 +317,7 @@
             ${p.explicacao ? `<div class="note">${inline(p.explicacao)}</div>` : ''}
           </div>`;
         document.getElementById('solucaoBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        pe({ estado: 'bad', msg: '<b>Solução revelada</b><small>Refaça de cabeça depois — esta volta na revisão.</small>' });
+        pe({ estado: 'bad', msg: '<b>Solução revelada</b><small>Refaça de cabeça depois, esta volta na revisão.</small>' });
       }
 
       pe({ msg: 'Escreva o código e verifique.', botao: 'Verificar', acao: verificar });

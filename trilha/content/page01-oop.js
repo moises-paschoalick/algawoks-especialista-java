@@ -1,4 +1,4 @@
-/* Unidade 2 — OOP Completo (docs/page_01.md · módulos 5, 10, 11, 12, 13, 14, 15) */
+/* Unidade 2 · OOP Completo (docs/page_01.md · módulos 5, 10, 11, 12, 13, 14, 15) */
 Trilha.add({
   numero: 2,
   titulo: 'OOP Completo',
@@ -16,16 +16,16 @@ Trilha.add({
       titulo: 'Encapsulamento e visibilidade',
       icone: '🔐',
       modulo: [5, 11],
-      resumo: 'Esconder o estado interno e expor só o que o mundo externo precisa — com validação no caminho.',
+      resumo: 'Esconder o estado interno e expor só o que o mundo externo precisa, com validação no caminho.',
       teoria: [
         { p: 'Encapsular é **ocultar o estado interno** e controlar todo acesso a ele. O objeto passa a ser responsável por manter a própria consistência, em vez de confiar em quem o usa.' },
         { h: 'A receita' },
         { ol: [
           'Todos os atributos `private`',
           'Getters só para o que realmente precisa ser lido',
-          'Nada de setter automático — exponha **operações de negócio**, não campos',
+          'Nada de setter automático: exponha **operações de negócio**, não campos',
           'Valide no construtor e em toda mudança de estado',
-          'Nunca devolva a coleção interna direto — devolva cópia ou view imutável',
+          'Nunca devolva a coleção interna direto: devolva cópia ou view imutável',
         ] },
         { code: `public class ContaBancaria {
     private double saldo;
@@ -120,7 +120,7 @@ public class Gerente extends Funcionario {
 }` },
         { nota: 'A anotação `@Override` não é obrigatória, mas use sempre: se a assinatura não bater com nenhum método da superclasse, o compilador acusa o erro em vez de criar um método novo silenciosamente.' },
         { h: 'Polimorfismo' },
-        { p: 'A referência é do tipo geral, o objeto é do tipo específico — e o método executado é o **do objeto**, decidido em tempo de execução (late binding).' },
+        { p: 'A referência é do tipo geral, o objeto é do tipo específico, e o método executado é o **do objeto**, decidido em tempo de execução (late binding).' },
         { code: `List<Funcionario> equipe = List.of(
     new Funcionario("Ana", 3000),
     new Gerente("Bia", 5000, 2000)
@@ -169,9 +169,9 @@ public int hashCode() {
         { nota: 'Use nos dois métodos exatamente os mesmos campos, e prefira campos imutáveis. Se o campo mudar depois de o objeto entrar num HashSet, você não o encontra mais.' },
         { h: 'final' },
         { ul: [
-          '`final` em variável — não pode ser reatribuída (o objeto ainda pode mudar por dentro)',
-          '`final` em método — não pode ser sobrescrito',
-          '`final` em classe — não pode ser estendida (ex.: `String`)',
+          '`final` em variável: não pode ser reatribuída (o objeto ainda pode mudar por dentro)',
+          '`final` em método: não pode ser sobrescrito',
+          '`final` em classe: não pode ser estendida (ex.: `String`)',
         ] },
       ],
       passos: [],
@@ -210,7 +210,7 @@ public int hashCode() {
             ['`private`', 'Java 9', 'reuso interno entre os defaults'],
           ] } },
         { h: 'Múltiplas interfaces' },
-        { p: 'Uma classe estende **uma** classe, mas implementa **quantas interfaces quiser** — é assim que Java resolve a herança múltipla sem o problema do diamante.' },
+        { p: 'Uma classe estende **uma** classe, mas implementa **quantas interfaces quiser**: é assim que Java resolve a herança múltipla sem o problema do diamante.' },
         { code: `public class RelatorioPdf implements Imprimivel, Exportavel, Comparable<RelatorioPdf> {
     @Override public void imprimir() { }
     @Override public byte[] exportar() { return new byte[0]; }
@@ -228,7 +228,7 @@ public int hashCode() {
           ] } },
         { nota: 'Regra prática: comece pela interface. Só promova para classe abstrata quando houver estado ou implementação de verdade para compartilhar entre as subclasses.' },
         { h: 'Interface funcional' },
-        { p: 'Interface com **um único método abstrato** — pode ser implementada por lambda. `@FunctionalInterface` faz o compilador garantir isso.' },
+        { p: 'Interface com **um único método abstrato**: pode ser implementada por lambda. `@FunctionalInterface` faz o compilador garantir isso.' },
         { code: `@FunctionalInterface
 public interface Validador<T> {
     boolean valida(T valor);
@@ -245,7 +245,7 @@ Validador<String> naoVazio = s -> s != null && !s.isBlank();` },
       titulo: 'Records e imutabilidade',
       icone: '📇',
       modulo: 11,
-      resumo: 'Portadores de dados imutáveis em uma linha — e quando eles não servem.',
+      resumo: 'Portadores de dados imutáveis em uma linha, e quando eles não servem.',
       teoria: [
         { p: 'Um `record` (Java 16+) é uma classe **imutável portadora de dados**. O compilador gera construtor, getters, `equals`, `hashCode` e `toString`.' },
         { code: `public record Cliente(String nome, String cpf, int idade) { }
@@ -255,7 +255,7 @@ Cliente c = new Cliente("Ana", "111", 30);
 c.nome();                    // acessor sem prefixo "get"
 c.equals(outro);             // compara todos os componentes
 System.out.println(c);       // Cliente[nome=Ana, cpf=111, idade=30]` },
-        { h: 'Construtor compacto — o lugar da validação' },
+        { h: 'Construtor compacto: o lugar da validação' },
         { code: `public record Produto(String nome, double preco) {
 
     public Produto {                                   // sem parênteses de parâmetros
@@ -272,8 +272,8 @@ System.out.println(c);       // Cliente[nome=Ana, cpf=111, idade=30]` },
         { ul: [
           'Campos de instância além dos componentes declarados',
           'Herdar de outra classe (todo record já estende `Record`)',
-          'Ser mutável — os componentes são `final`',
-          'Ser estendido — records são implicitamente `final`',
+          'Ser mutável: os componentes são `final`',
+          'Ser estendido: records são implicitamente `final`',
         ] },
         { p: 'Records **podem** implementar interfaces, ter métodos, construtores extras e membros estáticos.' },
         { h: 'Quando usar' },
@@ -296,10 +296,10 @@ System.out.println(c);       // Cliente[nome=Ana, cpf=111, idade=30]` },
       titulo: 'Composição vs herança e a Lei de Demeter',
       icone: '🧩',
       modulo: 15,
-      resumo: 'Por que "prefira composição a herança" é a boa prática mais citada — e mais cobrada.',
+      resumo: 'Por que "prefira composição a herança" é a boa prática mais citada, e mais cobrada.',
       teoria: [
         { h: 'O problema da herança para reuso' },
-        { p: 'Herança amarra a subclasse à implementação da superclasse. Cada nova combinação de comportamento vira uma classe nova — a hierarquia explode.' },
+        { p: 'Herança amarra a subclasse à implementação da superclasse. Cada nova combinação de comportamento vira uma classe nova: a hierarquia explode.' },
         { code: `// tentando cobrir combinações com herança
 class Cafe { }
 class CafeComLeite extends Cafe { }
