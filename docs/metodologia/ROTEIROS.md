@@ -3,7 +3,7 @@
 > Gerado por `tools/aula.mjs catalogo` a partir de `tools/roteiros.json`. Nao edite a mao.
 > Saida das etapas 1-2 da esteira (pedagogia + especialista Java). Ver [metodologia](README.md).
 
-**6 de 36 aulas prontas.**
+**9 de 36 aulas prontas.**
 
 ## Fundamentos
 
@@ -65,7 +65,7 @@
 - **Arco**: 1. Repeticao entre cargos 2. extrair a base (extends) 3. sobrescrever com super 4. rodar a folha (polimorfismo) 5. classe abstrata e @Override
 - **Pegadinha de entrevista**: Sobrescrita x sobrecarga; quem decide o metodo (runtime).
 
-### ☐ 🔴 Interfaces e abstração `oop-interfaces`
+### ✅ 🔴 Interfaces e abstração `oop-interfaces`
 
 - **Lição / módulo**: `oop-interfaces` · módulo 14
 - **Conceito nuclear**: Interface e um contrato: diz o que faz, nao como; uma classe assina varios contratos.
@@ -73,7 +73,7 @@
 - **Arco**: 1. Codigo preso a classe concreta quebra ao trocar 2. programe para a tomada (interface) 3. default method: o contrato ja traz o basico 4. uma classe assina varios contratos (heranca multipla de tipo) 5. interface x classe abstrata
 - **Pegadinha de entrevista**: Interface x classe abstrata; default methods; interface funcional.
 
-### ☐ 🔴 Records e imutabilidade `oop-records`
+### ✅ 🔴 Records e imutabilidade `oop-records`
 
 - **Lição / módulo**: `oop-records` · módulo 11
 - **Conceito nuclear**: Record e um portador de dados imutavel; o compilador gera construtor, equals, hashCode e toString.
@@ -81,7 +81,7 @@
 - **Arco**: 1. DTO com 60 linhas de boilerplate 2. record numa linha gera tudo 3. construtor compacto valida antes de lacrar 4. o que record nao permite (herdar, mutar) 5. imutabilidade rasa: copie a List no construtor
 - **Pegadinha de entrevista**: Quando usar record x classe; imutabilidade rasa.
 
-### ☐ 🔴 Composição vs herança e a Lei de Demeter `oop-composicao`
+### ✅ 🔴 Composição vs herança e a Lei de Demeter `oop-composicao`
 
 - **Lição / módulo**: `oop-composicao` · módulo 15
 - **Conceito nuclear**: Montar por pecas (tem-um) escala melhor que herdar (e-um); fale so com vizinhos diretos.

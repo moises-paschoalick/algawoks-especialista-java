@@ -182,6 +182,7 @@ public int hashCode() {
     /* ------------------------------------------------------------------ */
     {
       id: 'oop-interfaces',
+      aula: 'oop-interfaces',   // aula guiada em aula.html?id=oop-interfaces
       titulo: 'Interfaces e abstração',
       icone: '🔌',
       modulo: 14,
@@ -244,6 +245,7 @@ Validador<String> naoVazio = s -> s != null && !s.isBlank();` },
     /* ------------------------------------------------------------------ */
     {
       id: 'oop-records',
+      aula: 'oop-records',   // aula guiada em aula.html?id=oop-records
       titulo: 'Records e imutabilidade',
       icone: '📇',
       modulo: 11,
@@ -295,6 +297,7 @@ System.out.println(c);       // Cliente[nome=Ana, cpf=111, idade=30]` },
     /* ------------------------------------------------------------------ */
     {
       id: 'oop-composicao',
+      aula: 'oop-composicao',   // aula guiada em aula.html?id=oop-composicao
       titulo: 'Composição vs herança e a Lei de Demeter',
       icone: '🧩',
       modulo: 15,
