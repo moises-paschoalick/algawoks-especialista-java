@@ -40,8 +40,9 @@ echo "→ conferindo integridade das referências"
 falhas=0
 while IFS= read -r ref; do
   [ -e "$SAIDA/$ref" ] || { echo "  ✗ referência quebrada: $ref"; falhas=$((falhas+1)); }
-done < <(grep -ho 'src="[^"]*"\|href="[^"]*\.css"' "$SAIDA"/*.html \
-         | sed 's/.*="//; s/"$//' | sort -u)
+# strip do ?v=... de cache-busting antes de checar o arquivo no disco
+done < <(grep -ho 'src="[^"]*"\|href="[^"]*\.css[^"]*"' "$SAIDA"/*.html \
+         | sed 's/.*="//; s/"$//; s/?.*$//' | sort -u)
 
 [ "$falhas" -eq 0 ] || { echo "✗ $falhas referência(s) quebrada(s)"; exit 1; }
 
