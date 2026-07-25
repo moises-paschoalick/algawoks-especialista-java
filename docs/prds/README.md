@@ -24,6 +24,12 @@ Código-fonte em `trilha/` (branch `java-game`).
 | 005 | [Aulas guiadas interativas](005-aulas-guiadas-interativas.md) | Parcial | Personagem narrador, cenas com analogia antes do conceito, animação e som |
 | 006 | [Publicação estática](006-publicacao-estatica.md) | Implementado | Bundle sem build, `build.sh` e deploy no GitHub Pages |
 
+## Especificações técnicas
+
+Cada PRD tem uma SPEC correspondente em [`docs/specs/`](../specs/README.md), que
+define **como** o requisito é construído (arquitetura, contratos, algoritmos e
+deploy).
+
 ## Personas
 
 - **Estudante revisor** (persona principal): já fez o curso há 3+ anos, commitou os
