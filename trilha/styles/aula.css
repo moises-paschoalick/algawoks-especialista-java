@@ -441,6 +441,22 @@
 .contador .med.ruim .v { color: var(--red); }
 .contador .med.bom .v  { color: var(--green); }
 
+/* ==================================================== aula · encapsulamento */
+
+/* cofre: o estado protegido do objeto */
+.cofre {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 5px;
+  padding: 16px 24px; border-radius: 14px; border: 3px solid var(--dim);
+  font-family: var(--mono); min-width: 180px; transition: border-color .3s, background .3s;
+}
+.cofre-icone { font-size: 2.1rem; line-height: 1; }
+.cofre-saldo { font-size: 1.5rem; font-weight: 800; color: var(--text); }
+.cofre-tag { font-size: 0.64rem; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); }
+.cofre.aberto   { border-color: var(--red);   background: rgba(255,75,75,.08); }
+.cofre.aberto   .cofre-saldo { color: #ff8f8f; }
+.cofre.trancado { border-color: var(--green); background: rgba(88,204,2,.08); }
+.cofre.trancado .cofre-saldo { color: #9ae65a; }
+
 .livro-atual { font-size: 2.2rem; text-align: center; }
 .paginas { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
 .pagina {

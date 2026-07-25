@@ -16,6 +16,7 @@ Trilha.add({
       titulo: 'Encapsulamento e visibilidade',
       icone: '🔐',
       modulo: [5, 11],
+      aula: 'oop-encapsulamento',   // aula guiada em aula.html?id=oop-encapsulamento
       resumo: 'Esconder o estado interno e expor só o que o mundo externo precisa, com validação no caminho.',
       teoria: [
         { p: 'Encapsular é **ocultar o estado interno** e controlar todo acesso a ele. O objeto passa a ser responsável por manter a própria consistência, em vez de confiar em quem o usa.' },
