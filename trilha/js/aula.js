@@ -12,17 +12,20 @@ const Aula = (() => {
   /* --------------------------------------------------------------- boot */
 
   function iniciar(roteiro) {
+    const shell     = document.getElementById('aula');
     const elFala    = document.getElementById('fala');
     const elPalco   = document.getElementById('palco');
     const elDica    = document.getElementById('dica');
     const btn       = document.getElementById('btnContinuar');
+    const btnVoltar = document.getElementById('btnVoltar');
     const elPassos  = document.getElementById('passos');
     const personagem = document.getElementById('personagem');
 
     let atual = -1;
     let digitando = null;
     let liberado = false;
-    let acertos = 0, avaliados = 0;
+    let interagiu = false;                 // a cena atual já foi respondida/interagida?
+    const avaliacoes = new Map();          // índice da cena -> acertou (bool). Idempotente ao refazer.
 
     document.getElementById('tituloAula').textContent = roteiro.titulo;
     document.getElementById('nomePersonagem').textContent = roteiro.personagem.nome;
@@ -85,11 +88,19 @@ const Aula = (() => {
 
     /* ------------------------------------------------------------- fala */
 
-    /** Máquina de escrever. Clique em qualquer lugar do balão pula a animação. */
+    /**
+     * Máquina de escrever. Enquanto escreve, o foco é o narrador (palco recua);
+     * ao terminar, o foco passa para o palco se a cena for interativa.
+     * Clique no balão pula a digitação.
+     */
     function falar(linhas, aoTerminar) {
       const texto = linhas.join('\n');
       elFala.innerHTML = '';
       elFala.classList.add('digitando');
+
+      // primeiro leia o Bean: escurece o palco enquanto ele fala
+      shell.classList.add('foco-narrador');
+      shell.classList.remove('foco-palco');
 
       let i = 0;
       const alvo = document.createElement('span');
@@ -107,6 +118,8 @@ const Aula = (() => {
         digitando = null;
         alvo.innerHTML = Render.inline(texto).replace(/\n/g, '<br>');
         elFala.classList.remove('digitando');
+        // acabou de falar: agora o foco é a tela (se houver o que fazer nela)
+        shell.classList.remove('foco-narrador');
         aoTerminar && aoTerminar();
       }
 
@@ -128,14 +141,17 @@ const Aula = (() => {
       },
       pronto(msg) {                       // a cena avisa que a interação acabou
         liberado = true;
+        interagiu = true;
         btn.disabled = false;
+        atualizarVoltar();
         if (msg) api.dica(msg);
         Som.tocar('pop');
         gsap.fromTo(btn, { scale: 0.9 }, { scale: 1, duration: 0.4, ease: 'back.out(2)' });
       },
       registrarResposta(certo) {
-        avaliados++;
-        if (certo) acertos++;
+        avaliacoes.set(atual, certo);     // idempotente: refazer a cena substitui, não soma
+        interagiu = true;
+        atualizarVoltar();
         Som.tocar(certo ? 'acerto' : 'erro');
         reagir(certo ? 'feliz' : 'alerta');
       },
@@ -146,6 +162,7 @@ const Aula = (() => {
 
     function ir(indice) {
       atual = indice;
+      interagiu = false;
       const cena = roteiro.cenas[atual];
 
       [...elPassos.children].forEach((d, i) => {
@@ -156,6 +173,7 @@ const Aula = (() => {
       liberado = !cena.interativo;
       btn.disabled = true;
       btn.textContent = atual === roteiro.cenas.length - 1 ? 'Concluir' : 'Continuar';
+      atualizarVoltar();
       api.dica(cena.dica || '');
       if (atual > 0) Som.tocar('passo');
       document.querySelector('.palco-scroll').scrollTop = 0;
@@ -172,8 +190,31 @@ const Aula = (() => {
 
       reagir(cena.emocao || 'normal');
       falar([].concat(cena.fala), () => {
-        if (!cena.interativo) { liberado = true; btn.disabled = false; }
+        if (cena.interativo) {
+          shell.classList.add('foco-palco');     // hora de agir na tela
+        } else {
+          liberado = true; btn.disabled = false;  // cena de leitura: libera o avanço
+        }
       });
+    }
+
+    // Voltar vira "Refazer" quando a cena atual é interativa e já foi respondida,
+    // para o aluno tentar de novo depois de errar ou tocar errado.
+    function podeRefazer() {
+      return roteiro.cenas[atual] && roteiro.cenas[atual].interativo && interagiu;
+    }
+    function atualizarVoltar() {
+      const refazer = podeRefazer();
+      btnVoltar.textContent = refazer ? '↺ Refazer' : '← Voltar';
+      btnVoltar.disabled = !refazer && atual <= 0;
+    }
+    function voltar() {
+      if (podeRefazer()) {
+        avaliacoes.delete(atual);   // apaga a resposta antiga; refazer conta do zero
+        ir(atual);                  // redesenha a mesma cena, limpa
+      } else if (atual > 0) {
+        ir(atual - 1);
+      }
     }
 
     function avancar() {
@@ -184,9 +225,12 @@ const Aula = (() => {
 
     function concluir() {
       const licao = Trilha.licao(roteiro.licao);
+      const avaliados = avaliacoes.size;
+      const acertos = [...avaliacoes.values()].filter(Boolean).length;
       const xp = 40 + acertos * 10;
       Progress.concluir(roteiro.licao, { xp, acertos, total: avaliados });
 
+      shell.classList.remove('foco-narrador', 'foco-palco');
       document.getElementById('aula').classList.add('fim');
       Som.tocar('conclusao');
       reagir('feliz');
@@ -213,8 +257,10 @@ const Aula = (() => {
     }
 
     btn.onclick = avancar;
+    btnVoltar.onclick = voltar;
     document.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!btn.disabled) avancar(); }
+      else if (e.key === 'ArrowLeft' && !btnVoltar.disabled) { e.preventDefault(); voltar(); }
     });
 
     ir(0);

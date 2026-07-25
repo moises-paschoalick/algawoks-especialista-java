@@ -97,6 +97,7 @@ public List<Item> getItens() { return Collections.unmodifiableList(itens); }` },
       titulo: 'Herança, polimorfismo e classes abstratas',
       icone: '🧬',
       modulo: [12, 13],
+      aula: 'oop-heranca',   // aula guiada em aula.html?id=oop-heranca
       resumo: 'Reuso por especialização, sobrescrita de métodos e o contrato equals/hashCode.',
       teoria: [
         { h: 'Herança' },

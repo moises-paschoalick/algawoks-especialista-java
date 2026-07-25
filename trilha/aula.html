@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
   <meta name="theme-color" content="#0f1117">
   <title>Aula guiada · Trilha Java</title>
-  <link rel="stylesheet" href="styles/app.css">
-  <link rel="stylesheet" href="styles/aula.css">
+  <link rel="stylesheet" href="styles/app.css?v=2">
+  <link rel="stylesheet" href="styles/aula.css?v=3">
 </head>
 <body>
 
@@ -21,11 +21,7 @@
     <div class="passos" id="passos"></div>
   </header>
 
-  <main class="palco-scroll">
-    <section class="palco" id="palco"></section>
-  </main>
-
-  <footer class="barra-narrador">
+  <section class="barra-narrador">
     <div class="narrador-inner">
 
       <div class="personagem" id="personagem" data-emocao="normal">
@@ -84,11 +80,18 @@
         <div class="balao-corpo" id="fala" role="status" aria-live="polite"></div>
       </div>
 
-      <div class="narrador-acoes">
-        <div class="dica" id="dica"></div>
-        <button class="btn btn-primary" id="btnContinuar" disabled>Continuar</button>
-      </div>
+    </div>
+  </section>
 
+  <main class="palco-scroll">
+    <section class="palco" id="palco"></section>
+  </main>
+
+  <footer class="aula-acoes">
+    <div class="acoes-inner">
+      <div class="dica" id="dica"></div>
+      <button class="btn btn-voltar" id="btnVoltar" disabled>← Voltar</button>
+      <button class="btn btn-primary" id="btnContinuar" disabled>Continuar</button>
     </div>
   </footer>
 </div>
@@ -109,12 +112,13 @@
 <script src="content/page05-jdbc-repository.js"></script>
 <script src="content/page09-reflection.js"></script>
 <script src="content/page10-boas-praticas.js"></script>
-<script src="js/aula.js"></script>
+<script src="js/aula.js?v=2"></script>
 <!-- roteiros das aulas guiadas -->
 <script src="content/aula-primitivos.js"></script>
 <script src="content/aula-wrappers.js"></script>
 <script src="content/aula-strings.js"></script>
 <script src="content/aula-oop-encapsulamento.js"></script>
+<script src="content/aula-oop-heranca.js"></script>
 <script src="content/aula-generics.js"></script>
 <script>
   (() => {

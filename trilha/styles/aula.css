@@ -206,26 +206,26 @@
   padding: 1px 3px; outline: 1px solid rgba(206,130,255,.5);
 }
 
-/* ------------------------------------------------------------- narrador */
+/* --------------------------------------------------- narrador (no topo) */
 
 .barra-narrador {
   flex: 0 0 auto;
   background: rgba(22, 25, 35, .98);
-  border-top: 2px solid var(--border);
-  padding: 10px 14px max(10px, env(safe-area-inset-bottom));
+  border-bottom: 2px solid var(--border);
+  padding: 10px 14px;
+  transition: opacity .3s, transform .3s;
 }
 .narrador-inner {
   max-width: 780px; margin: 0 auto;
   display: grid;
   grid-template-columns: 54px 1fr;
-  grid-template-areas: "personagem balao" "acoes acoes";
-  gap: 10px; align-items: end;
+  gap: 10px; align-items: start;
 }
 
-.personagem { grid-area: personagem; width: 54px; }
+.personagem { width: 54px; transition: transform .3s, opacity .3s; transform-origin: top center; }
 .personagem svg { width: 100%; height: auto; display: block; overflow: visible; }
 
-.balao { grid-area: balao; min-width: 0; }
+.balao { min-width: 0; }
 .balao-nome {
   font-size: 0.62rem; font-weight: 800; letter-spacing: .09em;
   text-transform: uppercase; color: var(--purple); margin-bottom: 4px;
@@ -234,9 +234,12 @@
   background: var(--card); border: 1px solid var(--border);
   border-radius: 4px 12px 12px 12px; padding: 10px 12px;
   font-size: 0.85rem; line-height: 1.55; color: #e2e8f0;
-  min-height: 54px; max-height: 32vh; overflow-y: auto;
+  min-height: 48px; max-height: 34vh; overflow-y: auto;
   cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: max-height .3s, border-color .3s;
+  scrollbar-width: none;              /* Firefox: sem barra visível */
 }
+.balao-corpo::-webkit-scrollbar { width: 0; height: 0; }  /* WebKit: idem */
 .balao-corpo code { background: var(--card-2); padding: 1px 5px; border-radius: 4px; color: #a5f3c0; font-size: 0.88em; }
 .balao-corpo strong { color: #fff; }
 .balao-corpo.digitando::after {
@@ -245,18 +248,62 @@
 }
 @keyframes pisca { 50% { opacity: 0; } }
 
-.narrador-acoes {
-  grid-area: acoes;
-  display: flex; align-items: center; gap: 10px;
+/* ------------------------------------------------- estados de foco -------
+   foco-narrador: enquanto o Bean fala, o palco recua para você ler primeiro.
+   foco-palco: chegou a hora de agir, o narrador encolhe e sai da frente. */
+
+.aula-shell.foco-narrador .palco-scroll {
+  opacity: .35; transition: opacity .3s;
+}
+.aula-shell.foco-narrador .balao-corpo {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(206,130,255,.14);
+}
+
+.aula-shell.foco-palco .barra-narrador { opacity: .72; }
+.aula-shell.foco-palco .personagem { transform: scale(.82); opacity: .85; }
+.aula-shell.foco-palco .balao-corpo {
+  max-height: 3.4em;
+  /* fade no rodapé em vez de barra: sinaliza que há mais texto */
+  -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent);
+  mask-image: linear-gradient(to bottom, #000 68%, transparent);
+}
+
+.palco-scroll { transition: opacity .3s; }
+
+/* ------------------------------------------------- ações (no rodapé) ---- */
+
+.aula-acoes {
+  flex: 0 0 auto;
+  background: rgba(22, 25, 35, .98);
+  border-top: 2px solid var(--border);
+  padding: 10px 14px max(10px, env(safe-area-inset-bottom));
+}
+.acoes-inner {
+  max-width: 780px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-template-areas: "dica dica dica" "voltar voltar continuar";
+  gap: 8px 10px; align-items: center;
 }
 .dica {
-  flex: 1; font-size: 0.72rem; color: var(--gold);
+  grid-area: dica;
+  font-size: 0.72rem; color: var(--gold);
   opacity: 0; transition: opacity .25s; line-height: 1.35;
 }
 .dica.on { opacity: 1; }
-.narrador-acoes .btn { flex: 0 0 auto; min-width: 132px; }
+.aula-acoes .btn-voltar    { grid-area: voltar; }
+.aula-acoes .btn-primary   { grid-area: continuar; }
+.aula-acoes .btn { min-height: 44px; }
 
-#aula.fim .narrador-acoes .btn { display: none; }
+.btn-voltar {
+  background: transparent; color: var(--muted);
+  border: 2px solid var(--border);
+}
+.btn-voltar:hover:not(:disabled) { color: var(--text); border-color: var(--dim); }
+.btn-voltar:disabled { opacity: .35; }
+
+#aula.fim .aula-acoes .btn { display: none; }
 
 /* ============================================================== ≥ 720px */
 
@@ -279,16 +326,20 @@
   .compara { grid-template-columns: 1fr 1fr; gap: 16px; }
   .saida { font-size: 0.8rem; padding: 14px 16px; }
 
-  .barra-narrador { padding: 16px 20px; }
-  .narrador-inner {
-    grid-template-columns: 84px 1fr auto;
-    grid-template-areas: "personagem balao acoes";
+  .barra-narrador { padding: 14px 20px; }
+  .narrador-inner { grid-template-columns: 72px 1fr; gap: 16px; }
+  .personagem { width: 72px; }
+  .balao-corpo { font-size: 0.94rem; padding: 13px 16px; min-height: 56px; max-height: 30vh; }
+  .aula-shell.foco-palco .balao-corpo { max-height: 3.2em; }
+
+  .aula-acoes { padding: 14px 20px; }
+  .acoes-inner {
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas: "dica voltar continuar";
     gap: 16px;
   }
-  .personagem { width: 84px; }
-  .balao-corpo { font-size: 0.94rem; padding: 13px 16px; min-height: 62px; max-height: none; }
-  .narrador-acoes { flex-direction: column; align-items: flex-end; }
-  .dica { flex: none; text-align: right; max-width: 240px; font-size: 0.78rem; }
+  .dica { text-align: right; max-width: 300px; font-size: 0.78rem; }
+  .aula-acoes .btn { min-width: 128px; }
 }
 
 /* Quem prefere menos movimento não recebe animação de entrada */
@@ -456,6 +507,28 @@
 .cofre.aberto   .cofre-saldo { color: #ff8f8f; }
 .cofre.trancado { border-color: var(--green); background: rgba(88,204,2,.08); }
 .cofre.trancado .cofre-saldo { color: #9ae65a; }
+
+/* ==================================================== aula · herança */
+
+/* crachá de funcionário: usado em herança e polimorfismo */
+.cracha {
+  display: inline-flex; flex-direction: column; gap: 3px;
+  padding: 10px 14px; border-radius: 10px; border: 2px solid var(--border);
+  background: var(--card-2); font-family: var(--mono);
+  min-width: 118px; text-align: center;
+  transition: border-color .2s, transform .12s;
+}
+.cracha-nome { font-weight: 700; font-size: 0.82rem; color: var(--text); }
+.cracha-tipo { font-size: 0.62rem; color: var(--purple); text-transform: uppercase; letter-spacing: .06em; }
+.cracha-salario { font-size: 0.92rem; font-weight: 800; color: var(--dim); }
+.cracha-salario.pago { color: #9ae65a; }
+.cracha.base { border-color: var(--blue); border-style: dashed; }
+.cracha.base .cracha-tipo { color: var(--blue); }
+.cracha-org {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.org-seta { color: var(--blue); font-size: 0.72rem; font-family: var(--mono); }
+.org-filhos { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
 .livro-atual { font-size: 2.2rem; text-align: center; }
 .paginas { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
