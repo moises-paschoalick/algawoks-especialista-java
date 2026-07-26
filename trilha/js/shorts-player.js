@@ -46,7 +46,7 @@
     host.style.setProperty('--short-cor', s.cor);
     if (s.videoUrl) {                                // encaixa o MP4 renderizado
       canvas.classList.add('video');
-      canvas.innerHTML = `<video id="shVideo" playsinline muted></video>`;
+      canvas.innerHTML = `<video id="shVideo" playsinline></video>`;
       const v = canvas.querySelector('#shVideo');
       v.src = s.videoUrl;
       v.onended = () => irPara(atual + 1, true);
