@@ -28,6 +28,7 @@ window.SHORTS = [
     ],
     codigo: 'Carro meu = new Carro("preto");',
     dica: 'Classe é a receita; objeto é o bolo.',
+    videoUrl: 'videos/short-02.mp4',   // versão rica renderizada no Remotion
   },
   {
     id: 'short-03', numero: 3, cor: '#ffc800',
