@@ -36,6 +36,28 @@ grep -q "docBase: '${DOCS_URL}'" "$SAIDA/content/curso.js" \
 # GitHub Pages roda Jekyll por padrão e descarta arquivos/pastas iniciados por _
 touch "$SAIDA/.nojekyll"
 
+echo "→ carimbando a versão do build"
+COMMIT="$(git -C "$AQUI" rev-parse --short HEAD 2>/dev/null || echo desconhecido)"
+DATA="$(date +%Y-%m-%d)"
+HORA="$(date +%H:%M)"
+NAULAS="$(grep -c '"status": "pronta"' "$AQUI/tools/roteiros.json")"
+VERSAO="$DATA $HORA · $COMMIT · $NAULAS aulas"
+
+# version.json: o que está no ar, incluindo a lista de aulas prontas
+node -e '
+  const fs = require("fs"), r = require("'"$AQUI"'/tools/roteiros.json");
+  const prontas = r.roteiros.filter(x => x.status === "pronta");
+  const info = {
+    versao: "'"$VERSAO"'", commit: "'"$COMMIT"'", data: "'"$DATA $HORA"'",
+    aulasProntas: prontas.length, totalAulas: r.roteiros.length,
+    aulas: prontas.map(x => ({ id: x.aulaId, titulo: x.titulo, unidade: x.unidade, prioridade: x.prioridade })),
+  };
+  fs.writeFileSync("'"$SAIDA"'/version.json", JSON.stringify(info, null, 2) + "\n");
+'
+# injeta a versão no rodapé do hub
+sed -i "s|<span id=\"build-version\">dev</span>|<span id=\"build-version\">$VERSAO</span>|" "$SAIDA/index.html"
+echo "  versão: $VERSAO"
+
 echo "→ conferindo integridade das referências"
 falhas=0
 while IFS= read -r ref; do

@@ -252,49 +252,61 @@
    foco-narrador: enquanto o Bean fala, o palco recua para você ler primeiro.
    foco-palco: chegou a hora de agir, o narrador encolhe e sai da frente. */
 
+/* leitura: palco recua e o balão mostra a instrução INTEIRA, sem cortar */
 .aula-shell.foco-narrador .palco-scroll {
-  opacity: .35; transition: opacity .3s;
+  opacity: .3; transition: opacity .3s;
 }
 .aula-shell.foco-narrador .balao-corpo {
+  max-height: 52vh;
   border-color: var(--purple);
-  box-shadow: 0 0 0 3px rgba(206,130,255,.14);
+  box-shadow: 0 0 0 3px rgba(206,130,255,.16);
 }
 
-.aula-shell.foco-palco .barra-narrador { opacity: .72; }
-.aula-shell.foco-palco .personagem { transform: scale(.82); opacity: .85; }
+/* agir: narrador encolhe; o balão vira lembrete compacto, com toque para reler */
+.aula-shell.foco-palco .barra-narrador { opacity: .7; }
+.aula-shell.foco-palco .personagem { transform: scale(.8); opacity: .85; }
 .aula-shell.foco-palco .balao-corpo {
-  max-height: 3.4em;
-  /* fade no rodapé em vez de barra: sinaliza que há mais texto */
-  -webkit-mask-image: linear-gradient(to bottom, #000 68%, transparent);
-  mask-image: linear-gradient(to bottom, #000 68%, transparent);
+  max-height: 3.2em;
+  -webkit-mask-image: linear-gradient(to bottom, #000 66%, transparent);
+  mask-image: linear-gradient(to bottom, #000 66%, transparent);
+}
+/* balão compacto tocado: reexpande para reler a instrução */
+.aula-shell.foco-palco .balao-corpo.expandido {
+  max-height: 52vh;
+  -webkit-mask-image: none; mask-image: none;
 }
 
 .palco-scroll { transition: opacity .3s; }
 
-/* ------------------------------------------------- ações (no rodapé) ---- */
+/* ------------------------------------------------- ações (rodapé enxuto) */
 
 .aula-acoes {
   flex: 0 0 auto;
   background: rgba(22, 25, 35, .98);
-  border-top: 2px solid var(--border);
-  padding: 10px 14px max(10px, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+  padding: 6px 12px max(6px, env(safe-area-inset-bottom));
 }
 .acoes-inner {
   max-width: 780px; margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr auto auto;
-  grid-template-areas: "dica dica dica" "voltar voltar continuar";
-  gap: 8px 10px; align-items: center;
+  grid-template-areas: "dica voltar continuar";   /* uma linha só: rodapé baixo */
+  gap: 8px; align-items: center;
 }
 .dica {
-  grid-area: dica;
-  font-size: 0.72rem; color: var(--gold);
-  opacity: 0; transition: opacity .25s; line-height: 1.35;
+  grid-area: dica; min-width: 0;
+  font-size: 0.66rem; color: var(--gold);
+  opacity: 0; transition: opacity .25s; line-height: 1.3;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 .dica.on { opacity: 1; }
 .aula-acoes .btn-voltar    { grid-area: voltar; }
 .aula-acoes .btn-primary   { grid-area: continuar; }
-.aula-acoes .btn { min-height: 44px; }
+.aula-acoes .btn {
+  min-height: 36px; padding: 7px 13px; font-size: 0.8rem; border-radius: 9px;
+}
+.aula-acoes .btn-primary { box-shadow: 0 2px 0 var(--green-dk); }
+.aula-acoes .btn-voltar  { padding: 7px 11px; font-size: 0.76rem; }
 
 .btn-voltar {
   background: transparent; color: var(--muted);
@@ -329,17 +341,15 @@
   .barra-narrador { padding: 14px 20px; }
   .narrador-inner { grid-template-columns: 72px 1fr; gap: 16px; }
   .personagem { width: 72px; }
-  .balao-corpo { font-size: 0.94rem; padding: 13px 16px; min-height: 56px; max-height: 30vh; }
+  .balao-corpo { font-size: 0.94rem; padding: 13px 16px; min-height: 56px; }
+  .aula-shell.foco-narrador .balao-corpo { max-height: 46vh; }
   .aula-shell.foco-palco .balao-corpo { max-height: 3.2em; }
+  .aula-shell.foco-palco .balao-corpo.expandido { max-height: 46vh; }
 
-  .aula-acoes { padding: 14px 20px; }
-  .acoes-inner {
-    grid-template-columns: 1fr auto auto;
-    grid-template-areas: "dica voltar continuar";
-    gap: 16px;
-  }
-  .dica { text-align: right; max-width: 300px; font-size: 0.78rem; }
-  .aula-acoes .btn { min-width: 128px; }
+  .aula-acoes { padding: 10px 20px; }
+  .acoes-inner { gap: 16px; }
+  .dica { text-align: right; max-width: 340px; font-size: 0.76rem; }
+  .aula-acoes .btn { min-height: 40px; min-width: 116px; font-size: 0.84rem; padding: 8px 16px; }
 }
 
 /* Quem prefere menos movimento não recebe animação de entrada */

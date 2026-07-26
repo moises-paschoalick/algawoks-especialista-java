@@ -24,6 +24,7 @@ const Aula = (() => {
     let atual = -1;
     let digitando = null;
     let liberado = false;
+    let fase = 'ok';                       // 'lendo' (Bean fala) | 'agir' (interagindo) | 'ok' (pode avançar)
     let interagiu = false;                 // a cena atual já foi respondida/interagida?
     const avaliacoes = new Map();          // índice da cena -> acertou (bool). Idempotente ao refazer.
 
@@ -89,18 +90,15 @@ const Aula = (() => {
     /* ------------------------------------------------------------- fala */
 
     /**
-     * Máquina de escrever. Enquanto escreve, o foco é o narrador (palco recua);
-     * ao terminar, o foco passa para o palco se a cena for interativa.
-     * Clique no balão pula a digitação.
+     * Máquina de escrever. O foco (foco-narrador/foco-palco) é gerido em ir()
+     * e revelar(), não aqui. Tocar no balão pula a digitação; com o balão já
+     * compacto (foco-palco), tocar expande para reler a instrução inteira.
      */
     function falar(linhas, aoTerminar) {
       const texto = linhas.join('\n');
       elFala.innerHTML = '';
       elFala.classList.add('digitando');
-
-      // primeiro leia o Bean: escurece o palco enquanto ele fala
-      shell.classList.add('foco-narrador');
-      shell.classList.remove('foco-palco');
+      elFala.classList.remove('expandido');
 
       let i = 0;
       const alvo = document.createElement('span');
@@ -118,12 +116,13 @@ const Aula = (() => {
         digitando = null;
         alvo.innerHTML = Render.inline(texto).replace(/\n/g, '<br>');
         elFala.classList.remove('digitando');
-        // acabou de falar: agora o foco é a tela (se houver o que fazer nela)
-        shell.classList.remove('foco-narrador');
         aoTerminar && aoTerminar();
       }
 
-      elFala.onclick = () => { if (digitando) concluir(); };
+      elFala.onclick = () => {
+        if (digitando) { concluir(); return; }
+        if (shell.classList.contains('foco-palco')) elFala.classList.toggle('expandido');
+      };
     }
 
     /* -------------------------------------------------------------- api */
@@ -140,9 +139,10 @@ const Aula = (() => {
         elDica.classList.toggle('on', !!texto);
       },
       pronto(msg) {                       // a cena avisa que a interação acabou
+        fase = 'ok';
         liberado = true;
         interagiu = true;
-        btn.disabled = false;
+        setBotao(atual === roteiro.cenas.length - 1 ? 'Concluir' : 'Continuar', true);
         atualizarVoltar();
         if (msg) api.dica(msg);
         Som.tocar('pop');
@@ -160,10 +160,16 @@ const Aula = (() => {
 
     /* ------------------------------------------------------------ cenas */
 
+    function setBotao(label, ligado) {
+      btn.textContent = label;
+      btn.disabled = !ligado;
+    }
+
     function ir(indice) {
       atual = indice;
       interagiu = false;
       const cena = roteiro.cenas[atual];
+      fase = cena.interativo ? 'lendo' : 'ok';
 
       [...elPassos.children].forEach((d, i) => {
         d.classList.toggle('feito', i < atual);
@@ -171,14 +177,16 @@ const Aula = (() => {
       });
 
       liberado = !cena.interativo;
-      btn.disabled = true;
-      btn.textContent = atual === roteiro.cenas.length - 1 ? 'Concluir' : 'Continuar';
+      setBotao('…', false);
       atualizarVoltar();
-      api.dica(cena.dica || '');
+      api.dica('');
       if (atual > 0) Som.tocar('passo');
       document.querySelector('.palco-scroll').scrollTop = 0;
 
-      // troca de palco com fade: nunca corta seco
+      // modo leitura: escurece o palco, foco total no que o Bean escreve
+      shell.classList.add('foco-narrador');
+      shell.classList.remove('foco-palco');
+
       gsap.to(elPalco, {
         opacity: 0, y: 10, duration: 0.18,
         onComplete: () => {
@@ -191,11 +199,30 @@ const Aula = (() => {
       reagir(cena.emocao || 'normal');
       falar([].concat(cena.fala), () => {
         if (cena.interativo) {
-          shell.classList.add('foco-palco');     // hora de agir na tela
+          // leu a instrução: o botão vira o "OK" que revela o conteúdo
+          setBotao('✓ Entendi', true);
         } else {
-          liberado = true; btn.disabled = false;  // cena de leitura: libera o avanço
+          shell.classList.remove('foco-narrador');  // expositiva: mostra tudo
+          setBotao(atual === roteiro.cenas.length - 1 ? 'Concluir' : 'Continuar', true);
         }
       });
+    }
+
+    // OK tocado: sai do modo leitura, revela e foca o conteúdo do palco.
+    function revelar() {
+      fase = 'agir';
+      shell.classList.remove('foco-narrador');
+      shell.classList.add('foco-palco');
+      api.dica(roteiro.cenas[atual].dica || '');
+      setBotao(atual === roteiro.cenas.length - 1 ? 'Concluir' : 'Continuar', false);
+      Som.tocar('clique');
+      gsap.fromTo('.palco', { opacity: 0.4, y: 8 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+    }
+
+    function acaoPrimaria() {
+      if (btn.disabled) return;
+      if (fase === 'lendo') revelar();
+      else if (fase === 'ok') avancar();
     }
 
     // Voltar vira "Refazer" quando a cena atual é interativa e já foi respondida,
@@ -218,7 +245,7 @@ const Aula = (() => {
     }
 
     function avancar() {
-      if (!liberado) return;
+      if (fase !== 'ok') return;
       if (atual + 1 >= roteiro.cenas.length) return concluir();
       ir(atual + 1);
     }
@@ -256,10 +283,10 @@ const Aula = (() => {
       btn.style.display = 'none';
     }
 
-    btn.onclick = avancar;
+    btn.onclick = acaoPrimaria;
     btnVoltar.onclick = voltar;
     document.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (!btn.disabled) avancar(); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); acaoPrimaria(); }
       else if (e.key === 'ArrowLeft' && !btnVoltar.disabled) { e.preventDefault(); voltar(); }
     });
 

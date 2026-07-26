@@ -389,6 +389,16 @@ textarea.editor-fallback:focus { outline: none; }
 .finish-stat .k { font-size: 0.72rem; color: var(--dim); text-transform: uppercase; letter-spacing: .07em; margin-top: 2px; }
 .finish-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+/* ---------------------------------------------------------- rodapé build */
+
+.rodape-build {
+  text-align: center; margin-top: 40px; padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 0.72rem; color: var(--dim); font-family: var(--mono);
+}
+.rodape-build a { color: var(--dim); text-decoration: underline; }
+.rodape-build a:hover { color: var(--muted); }
+
 /* -------------------------------------------------------- página teoria */
 
 .hud-here { color: var(--dim); font-size: 0.9rem; font-weight: 600; }
