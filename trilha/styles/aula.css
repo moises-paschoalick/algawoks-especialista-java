@@ -578,6 +578,36 @@
 .domino.caiu { transform: rotate(74deg); background: rgba(255,150,0,.16); border-color: var(--orange); color: var(--orange); }
 .domino.parado { border-color: var(--green); color: #9ae65a; }
 
+/* ==================================================== aulas Collections */
+/* array de vagas fixas x lista que estica */
+.vagas { display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; margin: 12px 0; }
+.vaga {
+  width: 40px; height: 40px; border-radius: 7px; border: 2px dashed var(--dim);
+  display: grid; place-items: center; font-family: var(--mono); font-size: 0.74rem; color: var(--dim);
+  transition: border-color .2s, background .2s, transform .12s;
+}
+.vaga.ocupada { border-style: solid; border-color: var(--blue); color: #82aaff; background: var(--card-2); }
+.vaga.destaque { border-color: var(--gold); color: var(--gold); transform: translateY(-4px); }
+.vaga.recusada { border-color: var(--red); color: var(--red); }
+
+/* vagões (LinkedList) */
+.trem { display: flex; align-items: center; gap: 2px; justify-content: center; flex-wrap: wrap; margin: 12px 0; }
+.vagao {
+  padding: 8px 12px; border-radius: 8px; border: 2px solid var(--border);
+  background: var(--card-2); font-family: var(--mono); font-size: 0.74rem; color: var(--text);
+  transition: border-color .2s, transform .12s;
+}
+.vagao.destaque { border-color: var(--gold); color: var(--gold); transform: translateY(-4px); }
+.elo { color: var(--dim); font-size: 0.85rem; }
+
+/* baldes de hash (Set/Map) */
+.baldes { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin: 12px 0; }
+.balde { min-width: 58px; border: 2px solid var(--border); border-radius: 8px; padding: 6px; text-align: center; transition: border-color .2s; }
+.balde-num { font-size: 0.58rem; color: var(--dim); font-family: var(--mono); }
+.balde-item { background: var(--card-2); border-radius: 5px; padding: 3px 6px; font-size: 0.7rem; font-family: var(--mono); margin-top: 4px; color: #9ae65a; }
+.balde.acesa { border-color: var(--gold); }
+.balde.colisao { border-color: var(--orange); }
+
 .livro-atual { font-size: 2.2rem; text-align: center; }
 .paginas { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
 .pagina {

@@ -13,6 +13,7 @@ Trilha.add({
     /* ------------------------------------------------------------------ */
     {
       id: 'col-hierarquia',
+      aula: 'col-hierarquia',   // aula guiada em aula.html?id=col-hierarquia
       titulo: 'Arrays e a hierarquia do framework',
       icone: '🌳',
       modulo: [8, 18],
@@ -66,6 +67,7 @@ meio.add("c");      // UnsupportedOperationException` },
     /* ------------------------------------------------------------------ */
     {
       id: 'col-list',
+      aula: 'col-list',   // aula guiada em aula.html?id=col-list
       titulo: 'List: ArrayList vs LinkedList',
       icone: '📋',
       modulo: 18,
@@ -130,6 +132,7 @@ for (String nome : new ArrayList<>(nomes)) {
     /* ------------------------------------------------------------------ */
     {
       id: 'col-set-map',
+      aula: 'col-set-map',   // aula guiada em aula.html?id=col-set-map
       titulo: 'Set, Map e o papel do hashCode',
       icone: '🔑',
       modulo: 18,
@@ -204,6 +207,7 @@ for (Produto p : produtos) {
     /* ------------------------------------------------------------------ */
     {
       id: 'col-ordenacao',
+      aula: 'col-ordenacao',   // aula guiada em aula.html?id=col-ordenacao
       titulo: 'Comparable e Comparator',
       icone: '↕️',
       modulo: 18,
@@ -256,6 +260,7 @@ produtos.sort(Comparator.comparing(Produto::getNome,
     /* ------------------------------------------------------------------ */
     {
       id: 'col-enums',
+      aula: 'col-enums',   // aula guiada em aula.html?id=col-enums
       titulo: 'Enums com estado e comportamento',
       icone: '🎚️',
       modulo: 19,
