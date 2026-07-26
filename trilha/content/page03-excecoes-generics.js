@@ -13,6 +13,7 @@ Trilha.add({
     /* ------------------------------------------------------------------ */
     {
       id: 'exc-hierarquia',
+      aula: 'exc-hierarquia',   // aula guiada em aula.html?id=exc-hierarquia
       titulo: 'Hierarquia, checked e unchecked',
       icone: '🌡️',
       modulo: 16,
@@ -67,6 +68,7 @@ public String lerConfig(Path caminho) throws IOException {
     /* ------------------------------------------------------------------ */
     {
       id: 'exc-try',
+      aula: 'exc-try',   // aula guiada em aula.html?id=exc-try
       titulo: 'try-catch-finally e try-with-resources',
       icone: '🧯',
       modulo: 16,
@@ -216,6 +218,7 @@ public static <K, V> Map<V, K> inverter(Map<K, V> origem) {
     /* ------------------------------------------------------------------ */
     {
       id: 'gen-pecs',
+      aula: 'gen-pecs',   // aula guiada em aula.html?id=gen-pecs
       titulo: 'Wildcards, PECS e type erasure',
       icone: '🃏',
       modulo: 17,
