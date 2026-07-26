@@ -389,6 +389,92 @@ textarea.editor-fallback:focus { outline: none; }
 .finish-stat .k { font-size: 0.72rem; color: var(--dim); text-transform: uppercase; letter-spacing: .07em; margin-top: 2px; }
 .finish-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
+/* ------------------------------------------------ player de shorts (hub) */
+
+.shorts {
+  margin: 0 0 28px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
+}
+.shorts-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+}
+.shorts-head h2 { font-size: 1rem; font-weight: 800; flex: 1; }
+.shorts-head .shorts-conta { font-size: 0.78rem; color: var(--dim); font-family: var(--mono); }
+
+.shorts-body { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+.short-stage {
+  position: relative; width: 100%; max-width: 300px;
+  aspect-ratio: 9 / 16; max-height: 64vh;
+  border-radius: 16px; overflow: hidden;
+  background: linear-gradient(160deg, var(--short-cor, #58cc02) 0%, #12141d 55%);
+  cursor: pointer; user-select: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
+.short-stage video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.short-canvas { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 16px; color: #fff; }
+.short-canvas.video { padding: 0; }
+.short-badge {
+  font-size: 0.6rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+}
+.short-titulo { font-size: 0.7rem; color: rgba(255,255,255,.7); margin-top: 2px; margin-bottom: 8px; }
+.short-prog { height: 4px; border-radius: 3px; background: rgba(255,255,255,.2); overflow: hidden; margin-bottom: auto; }
+.short-prog-fill { height: 100%; background: #fff; width: 0; }
+
+.short-caption {
+  flex: 1; display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: 1.15rem; font-weight: 700; line-height: 1.35; padding: 8px 2px;
+  text-shadow: 0 2px 12px rgba(0,0,0,.5);
+}
+.short-caption.gancho { font-size: 1.3rem; color: #fff; }
+.short-caption.dica-fase { color: var(--gold); }
+
+.short-codigo {
+  font-family: var(--mono); font-size: 0.68rem; line-height: 1.5;
+  background: rgba(0,0,0,.42); border-radius: 8px; padding: 8px 10px;
+  color: #d7dce8; white-space: pre-wrap; margin-top: 8px; min-height: 0;
+  opacity: 0; transition: opacity .3s;
+}
+.short-codigo.on { opacity: 1; }
+.short-dica {
+  margin-top: 8px; font-size: 0.72rem; font-weight: 700; text-align: center;
+  color: #08150a; background: var(--gold); border-radius: 20px; padding: 6px 12px;
+  opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s;
+}
+.short-dica.on { opacity: 1; transform: none; }
+
+.short-play {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: 3rem; color: rgba(255,255,255,.92); pointer-events: none;
+  opacity: 0; transition: opacity .2s; text-shadow: 0 3px 14px rgba(0,0,0,.5);
+}
+.short-stage.pausado .short-play { opacity: 1; }
+
+.shorts-controles { display: flex; align-items: center; gap: 14px; }
+.shorts-controles button {
+  background: var(--card-2); border: 2px solid var(--border); color: var(--text);
+  width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1rem;
+  display: grid; place-items: center;
+}
+.shorts-controles button:hover { border-color: var(--dim); }
+.shorts-controles .play-btn { width: 48px; height: 48px; background: var(--green); color: #08150a; border: none; }
+
+.shorts-lista { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.short-chip {
+  width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--border);
+  background: var(--card-2); color: var(--muted); font-size: 0.72rem; font-weight: 700;
+  cursor: pointer; display: grid; place-items: center; font-family: var(--mono);
+}
+.short-chip.ativo { border-color: var(--short-cor, var(--green)); color: var(--text); }
+
+@media (min-width: 720px) {
+  .short-stage { max-width: 320px; }
+  .short-caption { font-size: 1.25rem; }
+}
+
 /* ---------------------------------------------------------- rodapé build */
 
 .rodape-build {
