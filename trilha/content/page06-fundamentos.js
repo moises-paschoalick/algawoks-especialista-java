@@ -297,6 +297,7 @@ String resultado = sb.___();`,
     /* ------------------------------------------------------------------ */
     {
       id: 'fund-fluxo',
+      aula: 'fund-fluxo',   // aula guiada em aula.html?id=fund-fluxo
       titulo: 'Controle de fluxo e switch moderno',
       icone: '🔀',
       modulo: 3,
@@ -383,6 +384,7 @@ switch (x) {
     /* ------------------------------------------------------------------ */
     {
       id: 'fund-memoria',
+      aula: 'fund-memoria',   // aula guiada em aula.html?id=fund-memoria
       titulo: 'Stack, Heap e Garbage Collector',
       icone: '🧠',
       modulo: 9,

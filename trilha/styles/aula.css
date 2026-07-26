@@ -567,6 +567,17 @@
   border: 1px solid var(--red); background: rgba(255,75,75,.08); color: #ff9f9f;
 }
 
+/* ==================================================== aula · controle de fluxo */
+.dominos { display: flex; gap: 5px; justify-content: center; align-items: flex-end; margin: 14px 0; min-height: 56px; }
+.domino {
+  width: 30px; height: 46px; border-radius: 5px;
+  background: var(--card-2); border: 2px solid var(--border);
+  display: grid; place-items: center; font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+  transition: transform .35s ease, background .2s, border-color .2s; transform-origin: bottom left;
+}
+.domino.caiu { transform: rotate(74deg); background: rgba(255,150,0,.16); border-color: var(--orange); color: var(--orange); }
+.domino.parado { border-color: var(--green); color: #9ae65a; }
+
 .livro-atual { font-size: 2.2rem; text-align: center; }
 .paginas { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-top: 6px; }
 .pagina {
