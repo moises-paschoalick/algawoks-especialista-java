@@ -6,6 +6,18 @@
  */
 window.SHORTS = [
   {
+    id: 'hook-2026', numero: '🔥', cor: '#ff4b4b',
+    titulo: 'Por que Java em 2026 (carreira backend)',
+    gancho: 'Todo mundo fala que Java morreu...',
+    beats: [
+      'Java é a que mais paga em vaga sênior de backend: infraestrutura crítica.',
+      'Spring Boot, virtual threads, GraalVM: madura, mas moderna de verdade.',
+      'Aprender Java é aprender arquitetura: pensar como engenheiro.',
+    ],
+    dica: 'Comenta JAVA que eu te mando por onde começar.',
+    videoUrl: 'videos/hook-2026.mp4',   // hook de carreira (~85s), Remotion
+  },
+  {
     id: 'short-01', numero: 1, cor: '#58cc02',
     titulo: 'O que torna o Java especial?',
     gancho: 'Por que aprender Java em 2024?',
