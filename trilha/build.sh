@@ -27,6 +27,7 @@ cp -r "$AQUI"/styles       "$SAIDA/"
 cp -r "$AQUI"/js           "$SAIDA/"
 cp -r "$AQUI"/content      "$SAIDA/"
 cp -r "$AQUI"/vendor       "$SAIDA/"
+[ -d "$AQUI/videos" ] && cp -r "$AQUI"/videos "$SAIDA/"   # MP4 dos shorts (se houver)
 
 echo "→ apontando os links de docs/ para $DOCS_URL"
 sed -i "s|docBase: '../'|docBase: '${DOCS_URL}'|" "$SAIDA/content/curso.js"
