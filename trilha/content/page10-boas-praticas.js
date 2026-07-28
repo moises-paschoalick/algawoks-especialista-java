@@ -13,6 +13,7 @@ Trilha.add({
     /* ------------------------------------------------------------------ */
     {
       id: 'bp-codigo-limpo',
+      aula: 'bp-codigo-limpo',   // aula guiada em aula.html?id=bp-codigo-limpo
       titulo: 'Princípios de código limpo',
       icone: '🧼',
       modulo: 6,
@@ -100,6 +101,7 @@ Thread.sleep(600);` },
     /* ------------------------------------------------------------------ */
     {
       id: 'bp-patterns',
+      aula: 'bp-patterns',   // aula guiada em aula.html?id=bp-patterns
       titulo: 'Strategy, Factory, Decorator e Builder',
       icone: '🧩',
       modulo: 15,
@@ -199,6 +201,7 @@ Pedido p = Pedido.builder().cliente("Ana").item(item1).cupom("BLACK10").build();
     /* ------------------------------------------------------------------ */
     {
       id: 'bp-logging',
+      aula: 'bp-logging',   // aula guiada em aula.html?id=bp-logging
       titulo: 'Logging com SLF4J e Logback',
       icone: '📝',
       modulo: 32,
@@ -273,6 +276,7 @@ log.debug("Pedido {} com {} itens", pedido.getId(), pedido.getItens().size());` 
     /* ------------------------------------------------------------------ */
     {
       id: 'bp-maven',
+      aula: 'bp-maven',   // aula guiada em aula.html?id=bp-maven
       titulo: 'Maven: estrutura, ciclo e escopos',
       icone: '📦',
       modulo: 31,

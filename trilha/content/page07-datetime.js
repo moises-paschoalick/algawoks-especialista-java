@@ -13,6 +13,7 @@ Trilha.add({
     /* ------------------------------------------------------------------ */
     {
       id: 'dt-mapa',
+      aula: 'dt-mapa',   // aula guiada em aula.html?id=dt-mapa
       titulo: 'Qual classe usar em cada caso',
       icone: '🗺️',
       modulo: 23,
@@ -54,6 +55,7 @@ d.setTime(0);              // mutável` },
     /* ------------------------------------------------------------------ */
     {
       id: 'dt-operacoes',
+      aula: 'dt-operacoes',   // aula guiada em aula.html?id=dt-operacoes
       titulo: 'LocalDate, LocalDateTime e operações',
       icone: '➕',
       modulo: 23,
@@ -117,6 +119,7 @@ long meses = ChronoUnit.MONTHS.between(inicio, fim);` },
     /* ------------------------------------------------------------------ */
     {
       id: 'dt-formatacao',
+      aula: 'dt-formatacao',   // aula guiada em aula.html?id=dt-formatacao
       titulo: 'Formatação, fusos e interoperabilidade',
       icone: '🌍',
       modulo: [22, 23],

@@ -13,6 +13,7 @@ Trilha.add({
     /* ------------------------------------------------------------------ */
     {
       id: 'ref-basico',
+      aula: 'ref-basico',   // aula guiada em aula.html?id=ref-basico
       titulo: 'Inspecionando classes em runtime',
       icone: '🪞',
       modulo: 35,
@@ -77,6 +78,7 @@ Object outro = comArgs.newInstance("Ana", 30);` },
     /* ------------------------------------------------------------------ */
     {
       id: 'ref-anotacoes',
+      aula: 'ref-anotacoes',   // aula guiada em aula.html?id=ref-anotacoes
       titulo: 'Anotações customizadas',
       icone: '🏷️',
       modulo: 35,

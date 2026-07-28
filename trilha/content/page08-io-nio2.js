@@ -13,6 +13,7 @@ Trilha.add({
     /* ------------------------------------------------------------------ */
     {
       id: 'io-path-files',
+      aula: 'io-path-files',   // aula guiada em aula.html?id=io-path-files
       titulo: 'Path e Files: a API moderna',
       icone: '🧭',
       modulo: 29,
@@ -115,6 +116,7 @@ Files.walkFileTree(raiz, new SimpleFileVisitor<Path>() {
     /* ------------------------------------------------------------------ */
     {
       id: 'io-streams-classicos',
+      aula: 'io-streams-classicos',   // aula guiada em aula.html?id=io-streams-classicos
       titulo: 'Streams de I/O e buffers',
       icone: '🚿',
       modulo: 28,
@@ -157,6 +159,7 @@ try (InputStream in = Files.newInputStream(origem);
     /* ------------------------------------------------------------------ */
     {
       id: 'io-serializacao',
+      aula: 'io-serializacao',   // aula guiada em aula.html?id=io-serializacao
       titulo: 'Serialização de objetos',
       icone: '💾',
       modulo: 30,

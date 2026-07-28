@@ -13,6 +13,7 @@ Trilha.add({
     /* ------------------------------------------------------------------ */
     {
       id: 'jdbc-conexao',
+      aula: 'jdbc-conexao',   // aula guiada em aula.html?id=jdbc-conexao
       titulo: 'Conexão e PreparedStatement',
       icone: '🔌',
       modulo: 33,
@@ -114,6 +115,7 @@ try {
     /* ------------------------------------------------------------------ */
     {
       id: 'jdbc-repository',
+      aula: 'jdbc-repository',   // aula guiada em aula.html?id=jdbc-repository
       titulo: 'O padrão Repository',
       icone: '📚',
       modulo: 34,
