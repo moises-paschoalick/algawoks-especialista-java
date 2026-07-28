@@ -13,6 +13,7 @@ Trilha.add({
     /* ------------------------------------------------------------------ */
     {
       id: 'fun-lambda',
+      aula: 'fun-lambda',   // aula guiada em aula.html?id=fun-lambda
       titulo: 'Lambdas e interfaces funcionais',
       icone: '✏️',
       modulo: 25,
@@ -86,6 +87,7 @@ Function<String, Produto> f5 = Produto::new;             // s -> new Produto(s)`
     /* ------------------------------------------------------------------ */
     {
       id: 'fun-streams',
+      aula: 'fun-streams',   // aula guiada em aula.html?id=fun-streams
       titulo: 'Streams: o pipeline',
       icone: '🌊',
       modulo: 27,
@@ -182,6 +184,7 @@ IntStream.rangeClosed(1, 5);  // 1,2,3,4,5` },
     /* ------------------------------------------------------------------ */
     {
       id: 'fun-optional',
+      aula: 'fun-optional',   // aula guiada em aula.html?id=fun-optional
       titulo: 'Optional sem gambiarra',
       icone: '🎁',
       modulo: 26,
